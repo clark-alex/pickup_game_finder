@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { getUser, getAllGames } from '../../ducks/reducer';
+import { getUser, getAllGames, updateGames } from '../../ducks/reducer';
+import axios from 'axios'
 
 
 
@@ -9,19 +10,26 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
 
+
     }
     componentWillMount() {
         this.props.getUser();
-        // this.props.getAllGames();
-
+        this.props.getAllGames();
+    }
+    subscribe(x,y){
+        axios.post('./api/subscribe', {x,y}).then(res=> res.data)
     }
 
     render() {
-        console.log(this.props.games[0]);
+        console.log(this.props);
+        console.log('userid',this.props.user.id);
+        console.log(this.props.games);
+        console.log(this.state);
+        
         let mappedGames = this.props.games.map((e, k) => {
-            console.log(e.sport)
+            console.log('e',e.game_id)
             return (
-                <div key={k}>{`${e.title}; ${e.sport}; ${e.dateofgame}; ${e.streetaddress}`}</div>
+                <div key={k}>{`${e.title}; ${e.sport}; ${e.dateofgame}; ${e.streetaddress}`} <button onClick={(x,y)=>this.subscribe(this.props.user.id,e.game_id)}>subscribe</button></div>
             )
         }
 
@@ -47,4 +55,4 @@ function mapStateToProps(state) {
         games: state.games
     }
 }
-export default connect(mapStateToProps, { getUser, getAllGames })(Dashboard)
+export default connect(mapStateToProps, {updateGames, getUser, getAllGames })(Dashboard)

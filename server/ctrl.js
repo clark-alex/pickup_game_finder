@@ -17,6 +17,15 @@ module.exports = {
         .then((games)=>res.status(200).send(games))
         .catch(()=>res.status(500).send())
 
-    }
+    },
+    subscribe: (req,res)=>{
+        const db = req.app.get('db')
+        const {user_id, game_id}=req.body
+
+        db.add_subscription ([req,res])
+        .then(()=>res.status(200).send())
+        .catch(()=>res.status(500).send())
+
+    },
 
 }

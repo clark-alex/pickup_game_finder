@@ -4,11 +4,14 @@ import axios from 'axios';
 const initialState = {
     user:{},
     subscriptions:{},
-    games:{},
+    games:[],
 }
 
 const GET_USER = 'GET_USER'
 const GET_GAMES = 'GET_GAMES'
+const ADD_SUBSCRIPTION = 'ADD_SUBSCRIPTION'
+const UPDATE_GAMES='UPDATE_GAMES'
+
 
 
 
@@ -31,6 +34,15 @@ export function getAllGames(){
         payload: gameData
     }
 }
+export function updateGames(games){
+    return {
+        type: UPDATE_GAMES,
+        payload: games
+    }
+}
+export function addSubscription(userId,GameId){
+    let subscribe = axios.post('/api/subscribe', {userId, GameId})
+}
 
 
 export default function reducer(state=initialState,action){
@@ -39,6 +51,8 @@ export default function reducer(state=initialState,action){
             return Object.assign({},state,{user: action.payload})
         case GET_GAMES + '_FULFILLED':
             return Object.assign({},state, {games: action.payload})
+        case UPDATE_GAMES:
+            return Object. assign({}, state, {games: action.payload})
         default: return state;
     }
 }
