@@ -5,6 +5,7 @@ const express = require ('express')
     , passport=require('passport')
     , Auth0Strategy=require('passport-auth0')
     , massive=require('massive') 
+    , ctrl=require('./ctrl')
 
 const {
     CONNECTION_STRING,
@@ -17,6 +18,8 @@ const {
 } =  process.env;
 
 const app= express();
+app.use(bodyParser.json());
+
 massive(CONNECTION_STRING).then(db=>{
     app.set('db',db);
 })
@@ -33,13 +36,12 @@ passport.use(new Auth0Strategy({
     clientID: CLIENT_ID,
     clientSecret:CLIENT_SECRET,
     callbackURL:CALLBACK_URL,
-    scope:'openid profile'
+    scope:'openid email profile'
 },function(accessToken, refreshToken, extraParams, profile, done){
     const db = app.get('db')
     db.find_user([profile.id]).then( users => {
-        console.log(profile)
         if (!users[0]){
-            db.create_user([profile.id, profile.displayName, profile.email, profile.picture]).then(res=>{
+            db.create_user([profile.id, profile.displayName, profile._json.email, profile.picture]).then(res=>{
                 done(null, res[0].id);
             })
         } else{
@@ -56,6 +58,8 @@ passport.deserializeUser((id, done)=>{
     })
    
 })
+
+// AUTH ENDPOINTS
 
 app.get('/auth', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0',{
@@ -74,6 +78,12 @@ app.get('/auth/logout', (req,res)=> {
     req.logOut();
     res.redirect('http://localhost:3000/')
 })
+
+// API ENDPOINTS
+
+app.post('/api/newgame', ctrl.newGame)
+app.get('/api/games', ctrl.getAllGames)
+
 
 
 app.listen(SERVER_PORT, ()=>console.log (`listening on port ${SERVER_PORT}`))

@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+
 
 
 class Profile extends Component {
+    constructor(props) {
+        super(props);
+        
+    }
+    
+    
     render() {
+        console.log();
+        
         return (
             <div>
                 Profile
@@ -13,5 +22,4 @@ class Profile extends Component {
         );
     }
 }
-
 export default Profile;
