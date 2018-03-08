@@ -7,6 +7,7 @@ const express = require ('express')
     , massive=require('massive') 
     , ctrl=require('./ctrl')
 
+
 const {
     CONNECTION_STRING,
     SERVER_PORT,
@@ -85,6 +86,8 @@ app.post('/api/newgame', ctrl.newGame)
 app.get('/api/games', ctrl.getAllGames)
 app.post('/api/subscribe', ctrl.subscribe)
 app.get('/api/currentsubscriptions/:id', ctrl.getCurrentSubscriptions)
+
+
 
 
 

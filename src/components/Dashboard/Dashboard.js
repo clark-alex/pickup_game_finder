@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getUser, getAllGames, updateGames, getCurrentSubscriptions } from '../../ducks/reducer';
 import axios from 'axios'
+import MapContainer from '../maps/InitialMap'
 
 
 
@@ -53,6 +54,7 @@ class Dashboard extends Component {
                 <br />
                 games
                 {mappedGames}
+                <MapContainer/>
             </div>
         )
     }

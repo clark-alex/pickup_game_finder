@@ -8,6 +8,12 @@ import axios from 'axios'
 class CreateGame extends Component {
     constructor(props) {
         super(props);
+
+        this.state={
+            latitude:-1,
+            longitude:-1,
+            formattedAddress:''
+        }
     }
     sendTodatabase() {
         console.log('refs', this.refs)
@@ -26,19 +32,37 @@ class CreateGame extends Component {
             streetAddress: this.refs.streetAddress.value,
             city: this.refs.city.value,
             addressState: this.refs.addressState.value,
-            zip: this.refs.zip.value
+            zip: this.refs.zip.value,
+            // latitude:this.state.latitude,
+            // longitude:this.state.longitude
+            // address: this.refs.address.value
 
         }
         console.log(obj);
 
         axios.post('/api/newgame', obj).then(res => {
-            console.log(res.data)
+            console.log(res.data[0])
+        })
+
+    }
+    geocoder() {
+        let fullAddress = this.refs.address.value;
+        // axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${streetAddress},+${city},+${addressState}&key=${process.env.REACT_APP_GOOGLE_KEY}`).then(res => {
+        //     this.setState({latitude: res.data.results[0].geometry.location.lat,
+        //                    longitude: res.data.results[0].geometry.location.lng  })
+        // })
+        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${fullAddress}&key=${process.env.REACT_APP_GOOGLE_KEY}`).then(res => {
+            this.setState({latitude: res.data.results[0].geometry.location.lat,
+                           longitude: res.data.results[0].geometry.location.lng,
+                            formattedAddress: res.data.results[0].formatted_address
+                              })
+                           console.log(res.data)
         })
     }
     render() {
-        console.log('id', this.props.user.id);
+        // console.log('id', this.props.user.id);
         console.log('state', this.state)
-        console.log(this.refs)
+        // console.log(this.refs)
 
         return (
             <div>
@@ -63,7 +87,7 @@ class CreateGame extends Component {
                     <h4>date and time of game</h4>
                     <input ref='dateOfGame' name='dateOfGame' type='datetime-local' />
                     <h4>location</h4>
-                    <input ref='streetAddress' name='streetAddress' placeholder="Street Address"/>
+                    <input ref='streetAddress' name='streetAddress' placeholder="Street Address" />
                     <input ref='city' name='city' placeholder="City" />
                     <select ref='addressState' name='addressState'>
                         <option>Alabama</option>
@@ -118,6 +142,8 @@ class CreateGame extends Component {
                         <option>Wyoming</option>
                     </select>
                     <input ref='zip' name='zip' placeholder="Zip" />
+                    <h4>full address</h4>
+                    <input ref='address'name='address' placeholder='full address'/>
                     <h4>Skill Level</h4>
                     <select ref='competitionLevel' name='competitionLevel'>
                         <option>--select--</option>
@@ -130,6 +156,7 @@ class CreateGame extends Component {
                     <h4>Description </h4>
                     <input ref='gameDescription' name='gameDescription' placeholder="enter game description" />
                     <br />
+                    <button onClick={() => this.geocoder()}>Save</button>
                     <button onClick={() => this.sendTodatabase()}>submit</button>
                 </div>
             </div>
