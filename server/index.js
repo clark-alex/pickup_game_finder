@@ -83,7 +83,8 @@ app.get('/auth/logout', (req,res)=> {
 
 app.post('/api/newgame', ctrl.newGame)
 app.get('/api/games', ctrl.getAllGames)
-app.post('./api/subscribe', ctrl.subscribe)
+app.post('/api/subscribe', ctrl.subscribe)
+app.get('/api/currentsubscriptions/:id', ctrl.getCurrentSubscriptions)
 
 
 

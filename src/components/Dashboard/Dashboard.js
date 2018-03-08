@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { getUser, getAllGames, updateGames } from '../../ducks/reducer';
+import { getUser, getAllGames, updateGames, getCurrentSubscriptions } from '../../ducks/reducer';
 import axios from 'axios'
 
 
@@ -15,21 +15,29 @@ class Dashboard extends Component {
     componentWillMount() {
         this.props.getUser();
         this.props.getAllGames();
+   
+        
+      
     }
     subscribe(x,y){
-        axios.post('./api/subscribe', {x,y}).then(res=> res.data)
+        let uId = x;
+        let  gId = y;
+        axios.post('/api/subscribe', {user_id:x,game_id:y}).then(res=> res.data)
     }
-
-    render() {
-        console.log(this.props);
+    getSubs(){
         console.log('userid',this.props.user.id);
-        console.log(this.props.games);
-        console.log(this.state);
+        let id = this.props.user.id;
+        this.props.getCurrentSubscriptions(id);
+    }
+    render() {
+        
+        console.log('userid',this.props);
+        // console.log(this.props.games);
+        // console.log(this.state);
         
         let mappedGames = this.props.games.map((e, k) => {
-            console.log('e',e.game_id)
             return (
-                <div key={k}>{`${e.title}; ${e.sport}; ${e.dateofgame}; ${e.streetaddress}`} <button onClick={(x,y)=>this.subscribe(this.props.user.id,e.game_id)}>subscribe</button></div>
+                <div key={k}>{`${e.title}; ${e.sport}; ${e.dateofgame}; ${e.streetaddress}`} <button onClick={()=>this.subscribe(this.props.user.id,e.game_id)}>subscribe</button></div>
             )
         }
 
@@ -39,7 +47,7 @@ class Dashboard extends Component {
             <div>
 
 
-                <Link to='/profile'><button>My games</button></Link>
+                <Link to='/profile'><button onClick={()=>this.getSubs()}>My games</button></Link>
                 <br />
                 <Link to='/CreateGame'><button>Create a game</button></Link>
                 <br />
@@ -52,7 +60,8 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
-        games: state.games
+        games: state.games,
+        subscriptions: state.subscriptions
     }
 }
-export default connect(mapStateToProps, {updateGames, getUser, getAllGames })(Dashboard)
+export default connect(mapStateToProps, {updateGames, getUser, getAllGames, getCurrentSubscriptions })(Dashboard)
