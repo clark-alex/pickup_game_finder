@@ -12,30 +12,30 @@ class CreateGame extends Component {
         this.state={
             latitude:-1,
             longitude:-1,
-            formattedAddress:''
+            address:''
         }
     }
     sendTodatabase() {
         console.log('refs', this.refs)
         let dateObject = new Date()
         var obj = {
-            creatorId: this.props.user.id,
+            creator_id: this.props.user.id,
             title: this.refs.title.value,
             sport: this.refs.sport.value,
-            dateOfGame: this.refs.dateOfGame.value,
-            gameDescription: this.refs.gameDescription.value,
-            competitionLevel: this.refs.competitionLevel.value,
-            monthCreated: (dateObject.getMonth()) + 1,
-            yearCreated: dateObject.getFullYear(),
-            hourCreated: dateObject.getHours(),
-            dateCreated: dateObject.getDate(),
-            streetAddress: this.refs.streetAddress.value,
+            date_of_game: this.refs.dateOfGame.value,
+            game_description: this.refs.gameDescription.value,
+            competition_level: this.refs.competitionLevel.value,
+            month_created: (dateObject.getMonth()) + 1,
+            year_created: dateObject.getFullYear(),
+            hour_created: dateObject.getHours(),
+            day_created: dateObject.getDate(),
+            street_address: this.refs.streetAddress.value,
             city: this.refs.city.value,
-            addressState: this.refs.addressState.value,
+            address_state: this.refs.addressState.value,
             zip: this.refs.zip.value,
-            // latitude:this.state.latitude,
-            // longitude:this.state.longitude
-            // address: this.refs.address.value
+            latitude:this.state.latitude,
+            longitude:this.state.longitude,
+            address: this.state.address
 
         }
         console.log(obj);
@@ -54,9 +54,9 @@ class CreateGame extends Component {
         axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${fullAddress}&key=${process.env.REACT_APP_GOOGLE_KEY}`).then(res => {
             this.setState({latitude: res.data.results[0].geometry.location.lat,
                            longitude: res.data.results[0].geometry.location.lng,
-                            formattedAddress: res.data.results[0].formatted_address
+                           address: res.data.results[0].formatted_address
                               })
-                           console.log(res.data)
+                           console.log(res.data.results[0].formatted_address)
         })
     }
     render() {

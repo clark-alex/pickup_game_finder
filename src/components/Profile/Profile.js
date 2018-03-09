@@ -10,13 +10,13 @@ class Profile extends Component {
         super(props);
 
     }
-    // componentDidMount() {
-    //     this.props.getUser();
-    //     console.log('users', this.props.user);
-    //     console.log('id', this.props.user.id);
-    //     let id = this.props.user.id;
-    //     this.props.getCurrentSubscriptions(id);
-    // }
+    componentDidMount() {
+        this.props.getUser();
+        console.log('users', this.props.user);
+        console.log('id', this.props.user.id);
+        let id = this.props.user.id;
+        this.props.getCurrentSubscriptions(id);
+    }
 
 
     render() {
