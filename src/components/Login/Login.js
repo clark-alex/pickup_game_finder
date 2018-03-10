@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getUser, getAllGames} from '../../ducks/reducer'
+import './Login.css'
 
 
 class Login extends Component {
@@ -15,10 +16,9 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
-                <Link to='/dashboard'><button>Login</button></Link>
-                <a href={process.env.REACT_APP_LOGIN}><button>Auth0</button></a>
-
+            <div className = 'login' >
+                <Link to='/dashboard' className='auth0'>Sportify</Link>
+                <a href={process.env.REACT_APP_LOGIN} className='auth0'>Login</a>
             </div>
         )
     }

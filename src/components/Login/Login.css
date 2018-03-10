@@ -1,0 +1,41 @@
+.login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    width:100vw;
+    background-image: url('../images/background.jpeg');
+    background-size: cover;
+    margin-left: auto;
+    margin-right: auto; 
+}
+.auth0{
+    display: flex;
+    text-justify: auto;
+    height: 97px;
+    width: 100vw;
+    background: linear-gradient(
+    to right,
+    rgba(166, 166, 168, 0.43),
+    rgba(77, 74, 74, 0.637) 
+    );
+    color:#FBFBFD;
+    font-family: 'Merriweather', serif;
+    font-weight: 300;
+    font-size: 40px;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+   
+    
+}
+
+.auth0:nth-child(2){
+    background: linear-gradient(
+    to left,
+    rgba(166, 166, 168, 0.43),
+    rgba(77, 74, 74, 0.637) 
+    ); 
+}
+

@@ -50,6 +50,7 @@ class MapContainer extends Component {
         console.log(this.state.activeMarker);
         console.log(this.state.selectedPlace.name)
         console.log('map state', this.state);
+        let style = {top:'80px'}
         let showingWindow = this.state.showingInfowindow;
         let actMarker = this.state.activeMarker
         let mappedMarker = this.state.games.map((e, k) => {
@@ -71,18 +72,18 @@ class MapContainer extends Component {
 
         
         return (
-            <div>
-                {
-                    activeMarker==='empty'
-                    ?
-                    'select Marker'
-                    :
-                    <div>{`${activeMarker.title}; ${activeMarker.sport}; ${activeMarker.date_of_game}; ${activeMarker.address}`} </div>
+            // <div>
+            //     {
+            //         activeMarker==='empty'
+            //         ?
+            //         'select Marker'
+            //         :
+            //         <div>{`${activeMarker.title}; ${activeMarker.sport}; ${activeMarker.date_of_game}; ${activeMarker.address}`} <button>Subscribe</button> </div>
 
-                }
+            //     }
                 <Map
                     google={this.props.google}
-                    // style={style}
+                    style={style}
                     initialCenter={{
                         lat: 40.2338,
                         lng: -111.6585
@@ -105,7 +106,7 @@ class MapContainer extends Component {
                         </div>
                     </InfoWindow>
                 </Map>
-            </div>
+            // </div>
         )
     }
 }

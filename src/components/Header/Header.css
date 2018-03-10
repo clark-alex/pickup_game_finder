@@ -1,0 +1,52 @@
+.mainHeader{
+    z-index: 20;
+    position: fixed;
+    display: flex;
+    height: 80px;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    background-color:rgb(252, 252, 252);
+    /* background-color:rgb(204, 47, 47); */
+    transition: 3s;
+    
+
+}
+.h3{
+    margin: 0px;
+    padding:20px;
+    background-color:rgb(252, 252, 252);
+    transition: 3s
+}
+
+
+
+.dashboardMenu{
+    z-index: 10;
+    position: absolute;
+    top: -80px;
+    transition: .5s;
+
+
+}
+.slide2 {
+  top:80px;
+}
+.iconButton{
+    padding-left: 15px;
+    padding-right: 15px
+}
+.underline{
+    position: relative;
+    z-index: 100;
+    top: 80px;
+    width: 100vw;
+    height: 3px;
+    background: linear-gradient(right, rgb(14, 13, 13), rgb(109, 105, 105));
+}
+.underline1{
+    position: relative;
+    width: 100vw;
+    height: 3px;
+    background: linear-gradient(right, rgb(14, 13, 13), rgb(109, 105, 105));
+}

@@ -5,6 +5,8 @@ import { getUser, getAllGames, updateGames, getCurrentSubscriptions } from '../.
 import axios from 'axios'
 import MapContainer from '../maps/InitialMap'
 import GoogleMap from '../maps/GoogleMap'
+import Header from '../Header/Header'
+import './Dashboard.css'
 
 
 
@@ -17,46 +19,49 @@ class Dashboard extends Component {
     componentWillMount() {
         this.props.getUser();
         this.props.getAllGames();
-   
-        
-      
+
+
+
     }
-    subscribe(x,y){
+    subscribe(x, y) {
         let uId = x;
-        let  gId = y;
-        axios.post('/api/subscribe', {user_id:x,game_id:y}).then(res=> res.data)
+        let gId = y;
+        axios.post('/api/subscribe', { user_id: x, game_id: y }).then(res => res.data)
     }
-    getSubs(){
-        console.log('userid',this.props.user.id);
+    getSubs() {
+        console.log('userid', this.props.user.id);
         let id = this.props.user.id;
         this.props.getCurrentSubscriptions(id);
     }
     render() {
-        
-        console.log('userid',this.props);
+
+        console.log('userid', this.props);
         // console.log(this.props.games);
         // console.log(this.state);
-        
-        let mappedGames = this.props.games.map((e, k) => {
-            return (
-                <div key={k}>{`${e.title}; ${e.sport}; ${e.dateofgame}; ${e.streetaddress}`} <button onClick={()=>this.subscribe(this.props.user.id,e.game_id)}>subscribe</button></div>
-            )
-        }
 
-        )
+        // let mappedGames = this.props.games.map((e, k) => {
+        //     return (
+        //         <div key={k}>{`${e.title}; ${e.sport}; ${e.dateofgame}; ${e.streetaddress}`} <button onClick={()=>this.subscribe(this.props.user.id,e.game_id)}>subscribe</button></div>
+        //     )
+        // }
+
+        // )
 
         return (
-            <div>
 
+            <div className='dashboard'>
+                <Header />
+                <div dashboard>
 
-                <Link to='/profile'><button onClick={()=>this.getSubs()}>My games</button></Link>
-                <br />
-                <Link to='/CreateGame'><button>Create a game</button></Link>
-                <br />
-                games
-                {mappedGames}
-                <MapContainer/>
-                {/* <GoogleMap/> */}
+                    {/* <Link to='/profile'><button onClick={() => this.getSubs()}>My games</button></Link>
+                <Link to='/CreateGame'><button>Create a game</button></Link> */}
+
+                    {/* {mappedGames} */}
+                    <div >
+                        <MapContainer />
+                    </div>
+                    {/* <GoogleMap/> */}
+                </div>
             </div>
         )
     }
@@ -68,4 +73,4 @@ function mapStateToProps(state) {
         subscriptions: state.subscriptions
     }
 }
-export default connect(mapStateToProps, {updateGames, getUser, getAllGames, getCurrentSubscriptions })(Dashboard)
+export default connect(mapStateToProps, { updateGames, getUser, getAllGames, getCurrentSubscriptions })(Dashboard)
