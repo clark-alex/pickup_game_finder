@@ -48,6 +48,14 @@ module.exports = {
         db.current_subscriptions([req.params.id])
         .then((subscriptions)=>res.status(200).send(subscriptions))
         .catch(()=>res.status(500).send())
+    },
+    getCreatorInfo: (req,res)=>{
+        const db = req.app.get('db')
+        
+        db.creator_info([])
+        .then((info)=>res.status(200).send(info))
+        .catch(()=>res.status(500).send())
     }
+
 
 }

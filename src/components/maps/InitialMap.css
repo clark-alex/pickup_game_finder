@@ -1,0 +1,53 @@
+
+.mapMainBody{
+    align-items: center;
+    justify-content: center;
+
+}
+.window{
+    align-items: center;
+    z-index: 50;
+    position: absolute;
+    height: 50vh;
+    width: 80vw;
+    background: white;
+    bottom: -500px;
+    left: 41.406px;
+    right: 41.406px;
+    border-radius: 15px;
+    overflow: scroll;
+    transition: .2s;
+
+
+}
+.slide{
+    bottom: 150px;
+
+}
+
+/* Info window contents */
+
+.title{
+
+}
+.infoSection{
+    
+}
+.lineBreak{
+    background: linear-gradient(right, white, black, white);
+    height: 1px;
+}
+.joinGame{
+    background: radial-gradient(white,black);
+    padding: 17px;
+    border-radius: 13px;
+    margin-bottom: 15px;
+    border: none;
+    outline: none;
+    transition: .2s;
+}
+.clickJoin{
+     background: radial-gradient(black,white);
+     color: white
+
+}
