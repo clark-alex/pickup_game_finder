@@ -87,6 +87,7 @@ app.get('/api/games', ctrl.getAllGames)
 app.post('/api/subscribe', ctrl.subscribe)
 app.get('/api/currentsubscriptions/:id', ctrl.getCurrentSubscriptions)
 app.get('/api/creatorinfo', ctrl.getCreatorInfo)
+app.delete('/api/deletesub/:id', ctrl.deleteSubscription)
 
 
 

@@ -1,0 +1,27 @@
+.createInput{
+    background: lightgrey;
+    width: 80vw;
+    height:30px;
+    text-align: center;
+
+}
+.selectButton{
+    width: 30vw;
+    background: rgb(180, 175, 175);
+    text-align-last: center;
+
+}
+.saveSubmit{
+    margin-top: 10px;
+    height: 40px;
+    width: 25vw;
+    background: lightgrey;
+    outline: none;
+    transition: .05s;
+}
+
+.saveClick{
+    height: 45px;
+    width: 30vw;
+    background: yellow;
+}

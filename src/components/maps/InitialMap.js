@@ -29,6 +29,7 @@ class MapContainer extends Component {
         let uId = x;
         let gId = y;
         axios.post('/api/subscribe', { user_id: x, game_id: y }).then(res => res.data)
+        this.setState({joinGameButton:!this.state.joinGameButton})
     }
 
     onMarkerClick(props, marker, e) {
@@ -102,7 +103,7 @@ class MapContainer extends Component {
                     <div className={'lineBreak'}></div>
                     <h3>Game Information</h3>
                     <h5>{activeMarker.game_description}</h5>
-                    <button onClick={()=>this.subscribe(user.id,activeMarker.game_id)} onClick={()=>this.joinClick()}className={ !joinGameButton?'joinGame': 'joinGame clickJoin'} >Join Game</button>
+                    <button onClick={()=>this.subscribe(user.id,activeMarker.game_id)} className={ !joinGameButton?'joinGame': 'joinGame clickJoin'} >Join Game</button>
                     <br/>
                   </div>
                 </div>

@@ -55,7 +55,18 @@ module.exports = {
         db.creator_info([])
         .then((info)=>res.status(200).send(info))
         .catch(()=>res.status(500).send())
+    },
+    deleteSubscription: (req,res)=>{
+        const db = req.app.get('db')
+        console.log(req.params.id);
+        
+
+        
+        db.delete_subscription([req.params.id])
+        .then(()=>res.status(200).send())
+        .catch(()=>res.status(500).send())
     }
+
 
 
 }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getUser } from '../../ducks/reducer'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import './CreateGame.css'
 
 
 class CreateGame extends Component {
@@ -12,7 +13,8 @@ class CreateGame extends Component {
         this.state={
             latitude:-1,
             longitude:-1,
-            address:''
+            address:'',
+            saveClick: false,
         }
     }
     sendTodatabase() {
@@ -29,10 +31,10 @@ class CreateGame extends Component {
             year_created: dateObject.getFullYear(),
             hour_created: dateObject.getHours(),
             day_created: dateObject.getDate(),
-            street_address: this.refs.streetAddress.value,
-            city: this.refs.city.value,
-            address_state: this.refs.addressState.value,
-            zip: this.refs.zip.value,
+            street_address: '' ,
+            city: '',
+            address_state: '',
+            zip: '',
             latitude:this.state.latitude,
             longitude:this.state.longitude,
             address: this.state.address
@@ -41,16 +43,13 @@ class CreateGame extends Component {
         console.log(obj);
 
         axios.post('/api/newgame', obj).then(res => {
-            console.log(res.data[0])
+            console.log('status',res.status)
+            res.status===200?alert('Successfully Submitted!'):('oops. Try Again')
         })
 
     }
     geocoder() {
         let fullAddress = this.refs.address.value;
-        // axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${streetAddress},+${city},+${addressState}&key=${process.env.REACT_APP_GOOGLE_KEY}`).then(res => {
-        //     this.setState({latitude: res.data.results[0].geometry.location.lat,
-        //                    longitude: res.data.results[0].geometry.location.lng  })
-        // })
         axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${fullAddress}&key=${process.env.REACT_APP_GOOGLE_KEY}`).then(res => {
             this.setState({latitude: res.data.results[0].geometry.location.lat,
                            longitude: res.data.results[0].geometry.location.lng,
@@ -58,8 +57,17 @@ class CreateGame extends Component {
                               })
                            console.log(res.data.results[0].formatted_address)
         })
+        this.setState({
+            saveClick:!this.state.saveClick
+        })
+    }
+    handleSaveClick(){
+        this.setState({
+            saveClick:!this.state.saveClick
+        })
     }
     render() {
+        const {saveClick}= this.state;
         // console.log('id', this.props.user.id);
         console.log('state', this.state)
         // console.log(this.refs)
@@ -72,9 +80,9 @@ class CreateGame extends Component {
                 <a href='http://localhost:3021/auth/logout'><button>logout</button></a>
                 <div className='createGameInputFields'>
                     <h4>Title of Game</h4>
-                    <input ref='title' name='title' placeholder="ex. Soccer at the park" />
+                    <input className={'createInput'} ref='title' name='title' placeholder="Ex. Provo Park Pick-up Soccer" />
                     <h4>Sport</h4>
-                    <select ref='sport' name='sport'>
+                    <select className={'selectButton'} ref='sport' name='sport'>
                         <option>--select--</option>
                         <option >Soccer</option>
                         <option>BasketBall</option>
@@ -85,67 +93,11 @@ class CreateGame extends Component {
 
                     </select>
                     <h4>date and time of game</h4>
-                    <input ref='dateOfGame' name='dateOfGame' type='datetime-local' />
+                    <input className={'createInput'} ref='dateOfGame' name='dateOfGame' type='datetime-local' />
                     <h4>location</h4>
-                    <input ref='streetAddress' name='streetAddress' placeholder="Street Address" />
-                    <input ref='city' name='city' placeholder="City" />
-                    <select ref='addressState' name='addressState'>
-                        <option>Alabama</option>
-                        <option>Alaska</option>
-                        <option>Arizona</option>
-                        <option>Arkansas</option>
-                        <option>California</option>
-                        <option>Colorado</option>
-                        <option>Connecticut</option>
-                        <option>Delaware</option>
-                        <option>Florida</option>
-                        <option>Georgia</option>
-                        <option>Hawaii</option>
-                        <option>Idaho</option>
-                        <option>Illinois</option>
-                        <option>Indiana</option>
-                        <option>Iowa</option>
-                        <option>Kansas</option>
-                        <option>Kentucky</option>
-                        <option>Louisiana</option>
-                        <option>Maine</option>
-                        <option>Maryland</option>
-                        <option>Massachusetts</option>
-                        <option>Michigan</option>
-                        <option>Minnesota</option>
-                        <option>Mississippi</option>
-                        <option>Missouri</option>
-                        <option>Montana</option>
-                        <option>Nebraska</option>
-                        <option>Nevada</option>
-                        <option>New Hampshire</option>
-                        <option>New Jersey</option>
-                        <option>New Mexico</option>
-                        <option>New York</option>
-                        <option>North Carolina</option>
-                        <option>North Dakota</option>
-                        <option>Ohio</option>
-                        <option>Oklahoma</option>
-                        <option>Oregon</option>
-                        <option>Pennsylvania</option>
-                        <option>Rhode Island</option>
-                        <option>South Carolina</option>
-                        <option>South Dakota</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Utah</option>
-                        <option>Vermont</option>
-                        <option>Virginia</option>
-                        <option>Washington</option>
-                        <option>West Virginia</option>
-                        <option>Wisconsin</option>
-                        <option>Wyoming</option>
-                    </select>
-                    <input ref='zip' name='zip' placeholder="Zip" />
-                    <h4>full address</h4>
-                    <input ref='address'name='address' placeholder='full address'/>
+                    <input className={'createInput'} ref='address'name='address' placeholder='full address'/>
                     <h4>Skill Level</h4>
-                    <select ref='competitionLevel' name='competitionLevel'>
+                    <select className={'selectButton'} ref='competitionLevel' name='competitionLevel'>
                         <option>--select--</option>
                         <option>Begginner</option>
                         <option>Intermediate</option>
@@ -154,10 +106,16 @@ class CreateGame extends Component {
 
                     </select>
                     <h4>Description </h4>
-                    <input ref='gameDescription' name='gameDescription' placeholder="enter game description" />
+                    <input className={'createInput'} ref='gameDescription' name='gameDescription' placeholder="enter game description" />
                     <br />
-                    <button onClick={() => this.geocoder()}>Save</button>
-                    <button onClick={() => this.sendTodatabase()}>submit</button>
+                    {
+                        saveClick===false
+                        ?
+                        <button className={'saveSubmit'} onClick={() => this.geocoder()}>Save</button>
+                        :
+                        
+                    <button className={'saveSubmit saveClick'} onClick={() => this.sendTodatabase()}>submit</button>
+                    }
                 </div>
             </div>
         )

@@ -12,6 +12,8 @@ const GET_GAMES = 'GET_GAMES'
 const ADD_SUBSCRIPTION = 'ADD_SUBSCRIPTION'
 const GET_USER_SUBSCRIPTION = 'GET_USER_SUBSCRIPTION'
 const UPDATE_GAMES = 'UPDATE_GAMES'
+const GET_CREATED_GAMES = 'GET_CREATED_GAMES'
+const DELETE_SUBSCRIPTION = 'DELETE_SUBSCRIPTION'
 
 
 
@@ -53,6 +55,14 @@ export function getCurrentSubscriptions(userId) {
         payload: getSubs
     }
 }
+export function deleteSubscription(subscribed_id) {
+    let deleteSub = axios.delete(`/api/deletesub/${subscribed_id}`)
+    .then(res=>console.log(res.data))
+    return{
+        type: DELETE_SUBSCRIPTION,
+        payload: deleteSub
+    }
+}
 
 
 
@@ -66,6 +76,8 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { games: action.payload })
         case GET_USER_SUBSCRIPTION + '_FULFILLED':
             return Object.assign({}, state, { subscriptions: action.payload })
+        case DELETE_SUBSCRIPTION + '_FULFILLED':
+            return Object.assign({}, state, { subscriptions: action.payload})
         default: return state;
     }
 }

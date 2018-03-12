@@ -10,6 +10,7 @@ select
 , latitude
 , longitude
 , address
+, subscribed_id
  from games
 join subscriptions on games.game_id = subscriptions.game_id
 join users on users.id = subscriptions.user_id
