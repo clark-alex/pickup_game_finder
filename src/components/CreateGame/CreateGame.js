@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { getUser } from '../../ducks/reducer'
+import { getUser, getCurrentSubscriptions } from '../../ducks/reducer'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import './CreateGame.css'
@@ -15,7 +15,16 @@ class CreateGame extends Component {
             longitude:-1,
             address:'',
             saveClick: false,
+            aGameDetails: []
         }
+    }
+    componentWillReceiveProps(){
+        this.props.activeGame===-1
+        ?
+        console.log(null)
+        :
+        axios.get(`/api/getActiveGame/${this.props.activeGame}`)
+        .then((res)=>this.setState({aGameDetails:res.data}))
     }
     sendTodatabase() {
         console.log('refs', this.refs)
@@ -68,7 +77,7 @@ class CreateGame extends Component {
     }
     render() {
         const {saveClick}= this.state;
-        // console.log('id', this.props.user.id);
+        console.log('props', this.props);
         console.log('state', this.state)
         // console.log(this.refs)
 
@@ -123,7 +132,9 @@ class CreateGame extends Component {
 }
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
+        activeGame: state.activeGame,
+        subscriptions: state.subscriptions,
     }
 }
 export default connect(mapStateToProps, { getUser })(CreateGame)

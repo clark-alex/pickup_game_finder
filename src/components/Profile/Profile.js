@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getCurrentSubscriptions, getUser, getAllGames, deleteSubscription } from '../../ducks/reducer'
+import { getCurrentSubscriptions, getUser, getAllGames, deleteSubscription, updateActiveGame } from '../../ducks/reducer'
 import './Profile.css'
 import axios from 'axios'
 
@@ -13,15 +13,29 @@ class Profile extends Component {
         this.state = {
             gameExpandClick: false,
             subExpand: false,
+            users:[]
         }
         this.deleteSubs = this.deleteSubs.bind(this)
+        this.handleExpansionClick = this.handleExpansionClick.bind(this)
+        this.handleSubsClick= this.handleSubsClick.bind(this)
     }
-    componentDidMount() {
+    componentWillMount() {
         this.props.getUser();
         console.log('users', this.props.user);
         console.log('id', this.props.user.id);
         let id = this.props.user.id;
         this.props.getCurrentSubscriptions(id);
+        this.setState({id:this.props.id})
+
+    }
+    // componentDidMount(){
+    //     axios.get('/auth/me').then(res=>this.setState({users:res.data}))
+    //     let id = this.state.users.id
+    //     axios.get(`/api/currentsubscriptions/${id}`)
+    // }
+    componentWillReceiveProps(){
+        let id = this.props.user.id;
+        this.props.getCurrentSubscriptions(this.props.user.id);
     }
     handleExpansionClick() {
         this.setState({
@@ -35,13 +49,16 @@ class Profile extends Component {
     }
 
     deleteSubs(id){
-        axios.delete(`/api/delete/${id}`)
+        axios.delete(`/api/deletesub/${id}`)
         .then((res)=>console.log(res.data))
+    }
+    editSubs(id){
+        this.props.updateActiveGame(id)
     }
 
 
     render() {
-        console.log('profile props', this.props);
+        // console.log('profile props', this.props);
         const { gameExpandClick, subExpand } = this.state
         let mappedSubs = this.props.subscriptions.map((e, k) => {
             return (
@@ -67,16 +84,16 @@ class Profile extends Component {
                         <h3>Game Information</h3>
                         <h5>{e.game_description}</h5>
                     </div>                    
-                    <button onClick={()=>this.deleteSubs(e.subscribed_id)}>DELETE</button>
+                    <button className={'deleteButton'} onClick={()=>this.deleteSubs(e.subscribed_id)}>DELETE</button>
                 </div>
             )
         }
 
 
         )
-        console.log(mappedSubs);
+        // console.log(mappedSubs);
         let createdGames = this.props.games.map((e, k) => this.props.user.id === e.creator_id ?
-            <div>
+            <div onClick={()=>this.handleExpansionClick()}>
                 <div key={k} className={
                     !gameExpandClick
                         ?
@@ -97,6 +114,7 @@ class Profile extends Component {
                         <div className={'lineBreak'}></div>
                         <h3>Game Information</h3>
                         <h5>{e.game_description}</h5>
+                        <Link to='/CreateGame'> <button className={'deleteButton'} onClick={()=>this.props.updateActiveGame(e.game_id)}>EDIT</button></Link>
                     </div>
                 </div>
             </div>
@@ -104,7 +122,7 @@ class Profile extends Component {
             "")
 
         return (
-            <div>
+            <div onClick={()=>this.handleSubsClick()}>
                 <div>
                     Profile
                 <br />
@@ -112,10 +130,8 @@ class Profile extends Component {
                 </div>
                 <div className='subsContainer'>
                     <h3>Created Games</h3>
-                    <button className={'expandButton'} onClick={() => this.handleExpansionClick()}>Expand</button>
                     {createdGames}
                     <h3>Subscribed Games</h3>
-                    <button className={'expandButton'} onClick={() => this.handleSubsClick()}>Expand</button>
                     {mappedSubs}
                 </div>
 
@@ -127,7 +143,8 @@ function mapStateToProps(state) {
     return {
         user: state.user,
         subscriptions: state.subscriptions,
-        games: state.games
+        games: state.games,
+        activeGame: state.activeGame
     }
 }
-export default connect(mapStateToProps, { getCurrentSubscriptions, getUser, getAllGames, deleteSubscription })(Profile)
+export default connect(mapStateToProps, { updateActiveGame, getCurrentSubscriptions, getUser, getAllGames, deleteSubscription })(Profile)

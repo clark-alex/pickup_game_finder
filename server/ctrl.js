@@ -42,7 +42,6 @@ module.exports = {
     },
     getCurrentSubscriptions: (req,res)=>{
         const db = req.app.get('db')
-        console.log(req.params.id);
         
         
         db.current_subscriptions([req.params.id])
@@ -57,14 +56,20 @@ module.exports = {
         .catch(()=>res.status(500).send())
     },
     deleteSubscription: (req,res)=>{
-        const db = req.app.get('db')
-        console.log(req.params.id);
-        
+        const db = req.app.get('db')        
 
         
         db.delete_subscription([req.params.id])
         .then(()=>res.status(200).send())
         .catch(()=>res.status(500).send())
+    },
+    getActiveGame: (req,res)=>{
+        const db = req.app.get('db')
+
+        db.get_active_games([req.params.id])
+        .then(()=>res.status(200).send())
+        .catch(()=>res.status(500).send())
+
     }
 
 
