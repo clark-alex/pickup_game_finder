@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { getUser, getAllGames, updateGames, getCurrentSubscriptions } from '../../ducks/reducer';
+import { getUser, getAllGames,updateActiveGame, updateGames, getCurrentSubscriptions } from '../../ducks/reducer';
 import axios from 'axios'
 import MapContainer from '../maps/InitialMap'
 import GoogleMap from '../maps/GoogleMap'
@@ -19,6 +19,7 @@ class Dashboard extends Component {
     componentWillMount() {
         this.props.getUser();
         this.props.getAllGames();
+        this.props.updateActiveGame(0);
 
 
 
@@ -73,4 +74,4 @@ function mapStateToProps(state) {
         subscriptions: state.subscriptions
     }
 }
-export default connect(mapStateToProps, { updateGames, getUser, getAllGames, getCurrentSubscriptions })(Dashboard)
+export default connect(mapStateToProps, { updateGames, getUser, getAllGames, getCurrentSubscriptions, updateActiveGame })(Dashboard)

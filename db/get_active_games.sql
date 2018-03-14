@@ -1,4 +1,3 @@
-select 
-*
+select *
 from games
-where game_id = $1
+where games.game_id = $1

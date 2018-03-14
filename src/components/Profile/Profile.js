@@ -55,6 +55,8 @@ class Profile extends Component {
     editSubs(id){
         this.props.updateActiveGame(id)
     }
+    
+
 
 
     render() {

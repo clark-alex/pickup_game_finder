@@ -5,7 +5,7 @@ const initialState = {
     user: {},
     subscriptions: [],
     games: [],
-    activeGame: -1,
+    activeGame: [0],
 }
 
 const GET_USER = 'GET_USER'
@@ -65,7 +65,15 @@ export function deleteSubscription(subscribed_id) {
         payload: deleteSub
     }
 }
-export function updateActiveGame(activeGame) {
+// export function updateActiveGame(activeGame) {
+//     return {
+//         type: UPDATE_ACTIVE_GAME,
+//         payload: activeGame
+//     }
+// }
+export function updateActiveGame(aGameId) {
+    let activeGame = axios.get(`/api/getActiveGame/${aGameId}`)
+    .then((res)=>res.data)
     return {
         type: UPDATE_ACTIVE_GAME,
         payload: activeGame
@@ -86,7 +94,7 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { subscriptions: action.payload })
         case DELETE_SUBSCRIPTION + '_FULFILLED':
             return Object.assign({}, state, { subscriptions: action.payload })
-        case UPDATE_ACTIVE_GAME:
+        case UPDATE_ACTIVE_GAME + '_FULFILLED':
             return Object.assign({}, state, {activeGame: action.payload})
 
 

@@ -12,18 +12,7 @@ module.exports = {
             
         
     },
-    // newGame: (req,res)=>{
-    //     const db = req.app.get('db')
-       
-    //     console.log(req.body);
-        
-    //     db.games.insert([req.body], function(err, res){});
-        
-            
-        
-    // },
-   
-    getAllGames: (req,res)=>{
+     getAllGames: (req,res)=>{
         const db = req.app.get('db')
 
         db.get_games([])
@@ -65,12 +54,28 @@ module.exports = {
     },
     getActiveGame: (req,res)=>{
         const db = req.app.get('db')
+        console.log(req.params.id);
+        
 
         db.get_active_games([req.params.id])
+        .then((x)=>res.status(200).send(x))
+        .catch(()=>res.status(500).send())
+
+    },
+    edit: (req,res)=>{
+        const db = req.app.get('db')
+
+        console.log(req.params.id);
+        console.log(req.body);
+        
+        
+        db.games.update({game_id:req.params.id},req.body)
+
         .then(()=>res.status(200).send())
         .catch(()=>res.status(500).send())
 
     }
+    
 
 
 

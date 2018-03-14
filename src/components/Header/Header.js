@@ -3,7 +3,7 @@ import './Header.css'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { getUser, getAllGames, updateGames, getCurrentSubscriptions } from '../../ducks/reducer';
+import { getUser, getAllGames, updateGames, getCurrentSubscriptions, updateActiveGame } from '../../ducks/reducer';
 
 class Header extends Component {
     constructor(props) {
@@ -62,7 +62,7 @@ class Header extends Component {
                 <div className='underline'>
                 </div>
                 <div className={this.state.menuClicked ? 'dashboardMenu  slide2' : 'dashboardMenu'}>
-                <Link to='/CreateGame'><h3 className= 'h3' >Create a game</h3></Link>
+                <Link to='/CreateGame'><h3 onClick={()=>this.props.updateActiveGame(-1)} className= 'h3' >Create a game</h3></Link>
                     <div className='underline1'>
                     </div>
                 </div>
@@ -74,8 +74,9 @@ function mapStateToProps(state) {
     return {
         user: state.user,
         games: state.games,
-        subscriptions: state.subscriptions
+        subscriptions: state.subscriptions,
+        activeGame: state.activeGame
     }
 }
 
-export default connect(mapStateToProps, { updateGames, getUser, getAllGames, getCurrentSubscriptions } ) (Header);
+export default connect(mapStateToProps, { updateGames, updateActiveGame, getUser, getAllGames, getCurrentSubscriptions } ) (Header);
