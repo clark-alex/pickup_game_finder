@@ -62,7 +62,8 @@ class MapContainer extends Component {
         console.log(this.state.selectedPlace.name)
         console.log('map state', this.state);
         const {user, activeMarker, joinGameButton}=this.state;
-        let style = {top:'80px'}
+        let style = {top:'79px'}
+
         let showingWindow = this.state.showingInfowindow;
         let actMarker = this.state.activeMarker
         let mappedMarker = this.state.games.map((e, k) => {

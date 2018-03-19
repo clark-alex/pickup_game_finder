@@ -15,8 +15,17 @@ class CreateGame extends Component {
             longitude: -1,
             address: '',
             saveClick: false,
-            aGameDetails: []
-        
+            aGameDetails: [],
+            title: '',
+            sport: '',
+            date_of_game: '',
+            game_description: '',
+            competition_level: '',
+            month_created: -1,
+            year_created: -1,
+            hour_created: -1,
+            day_created: -1
+
         }
     }
     // componentWillReceiveProps(){
@@ -34,6 +43,20 @@ class CreateGame extends Component {
     //     :
     //     axios.get(`/api/getActiveGame/${this.props.activeGame}`)
     //     .then((res)=>this.setState({aGameDetails:res.data}))
+    // }
+    // componentWillMount() {
+    //     let dateObject = new Date();
+    //     this.setState({
+    //             title: this.props.activeGame[0].title,
+    //             sport: this.props.activeGame[0].sport,
+    //             date_of_game: this.props.activeGame[0].date_of_game,
+    //             game_description: this.props.activeGame[0].game_description,
+    //             competition_level:this.props.activeGame[0].competition_level,
+    //             month_created: (dateObject.getMonth()) + 1,
+    //             year_created: dateObject.getFullYear(),
+    //             hour_created: dateObject.getHours(),
+    //             day_created: dateObject.getDate(),
+    //         })
     // }
     sendTodatabase() {
         console.log('refs', this.refs)
@@ -66,7 +89,7 @@ class CreateGame extends Component {
         })
 
     }
-    editGame(){
+    editGame() {
         console.log('refs', this.refs)
         let dateObject = new Date()
         let id = this.props.activeGame[0].game_id;
@@ -92,8 +115,9 @@ class CreateGame extends Component {
         }
         console.log(obj);
         axios.put(`/api/edit/${id}`, obj)
-        .then(res=>{console.log('edit status', res.status);
-    })
+            .then(res => {
+                console.log('edit status', res.status);
+            })
 
     }
     geocoder() {
@@ -110,13 +134,13 @@ class CreateGame extends Component {
             saveClick: !this.state.saveClick
         })
     }
-    editField(){
+    editField() {
 
     }
     render() {
         const { saveClick, aGameDetails } = this.state;
         console.log('props', this.props);
-        console.log('state', this.state.aGameDetails[0])
+        console.log('state', this.state)
         // console.log(this.refs)
 
         return (
@@ -132,7 +156,7 @@ class CreateGame extends Component {
                         ?
                         <input className={'createInput'} ref='title' name='title' placeholder="Ex. Provo Park Pick-up Soccer" />
                         :
-                        <input className={'createInput'} ref='title' name='title' placeholder={this.props.activeGame[0].title}  />
+                        <input className={'createInput'} ref='title' name='title' placeholder={this.props.activeGame[0].title} />
 
                     }
                     <h4>Sport</h4>
@@ -150,8 +174,8 @@ class CreateGame extends Component {
                                 <option>Soft Ball</option>
                             </select>
                             :
-                            <select className={'selectButton'} ref='sport' name='sport' placeholder={this.props.activeGame[0].sport}>
-                                <option>--select--</option>
+                            <select className={'selectButton'} ref='sport' name='sport' >
+                                <option>{this.props.activeGame[0].sport}</option>
                                 <option >Soccer</option>
                                 <option>BasketBall</option>
                                 <option>Ultimate</option>
@@ -167,67 +191,67 @@ class CreateGame extends Component {
                             ?
                             <input className={'createInput'} ref='dateOfGame' name='dateOfGame' type='datetime-local' />
                             :
-                            <input className={'createInput'} ref='dateOfGame' name='dateOfGame' type='datetime-local' placeholder={this.props.activeGame[0].date_of_game} />
+                            <input className={'createInput'} ref='dateOfGame' name='dateOfGame' type='datetime-local' defaultValue={this.props.activeGame[0].date_of_game} />
                     }
                     <h4>location</h4>
                     {
                         !this.props.activeGame[0]
-                        ?
-                        < input className={'createInput'} ref='address' name='address' placeholder='full address' />
-                        :
-                        < input className={'createInput'} ref='address' name='address' placeholder={this.props.activeGame[0].address} />
+                            ?
+                            < input className={'createInput'} ref='address' name='address' placeholder='full address' />
+                            :
+                            < input className={'createInput'} ref='address' name='address' placeholder={this.props.activeGame[0].address} />
 
                     }
                     <h4>Skill Level</h4>
                     {
                         !this.props.activeGame[0]
-                        ?
-                    <select className={'selectButton'} ref='competitionLevel' name='competitionLevel'>
-                        <option>--select--</option>
-                        <option>Begginner</option>
-                        <option>Intermediate</option>
-                        <option>Competative</option>
-                        <option>All</option>
+                            ?
+                            <select className={'selectButton'} ref='competitionLevel' name='competitionLevel'>
+                                <option>--select--</option>
+                                <option>Begginner</option>
+                                <option>Intermediate</option>
+                                <option>Competative</option>
+                                <option>All</option>
 
-                    </select>
-                    :
-                    <select className={'selectButton'} ref='competitionLevel' name='competitionLevel' placeholder={this.props.activeGame[0].competition_level}>
-                        <option>--select--</option>
-                        <option>Begginner</option>
-                        <option>Intermediate</option>
-                        <option>Competative</option>
-                        <option>All</option>
+                            </select>
+                            :
+                            <select className={'selectButton'} ref='competitionLevel' name='competitionLevel' >
+                                <option>{this.props.activeGame[0].competition_level}</option>
+                                <option>Begginner</option>
+                                <option>Intermediate</option>
+                                <option>Competative</option>
+                                <option>All</option>
 
-                    </select>
+                            </select>
                     }
                     <h4>Description </h4>
                     {
-                         !this.props.activeGame[0]
-                         ?
-                    <input className={'createInput'} ref='gameDescription' name='gameDescription' placeholder="enter game description" />
-                        :
-                        <input className={'createInput'} ref='gameDescription' name='gameDescription' placeholder={this.props.activeGame[0].game_description} />
+                        !this.props.activeGame[0]
+                            ?
+                            <input className={'createInput'} ref='gameDescription' name='gameDescription' placeholder="enter game description" />
+                            :
+                            <input className={'createInput'} ref='gameDescription' name='gameDescription' placeholder={this.props.activeGame[0].game_description} />
 
                     }
                     <br />
                     {
-                         !this.props.activeGame[0]
-                         ?
+                        !this.props.activeGame[0]
+                            ?
 
-                        saveClick === false
-                            ?
-                            <button className={'saveSubmit'} onClick={() => this.geocoder()}>Save</button>
-                            :
-                            <button className={'saveSubmit saveClick'} onClick={() => this.sendTodatabase()}>submit</button>
-                        :   
                             saveClick === false
-                            ?
-                            <button className={'saveSubmit'} onClick={() => this.geocoder()}>Save</button>
+                                ?
+                                <button className={'saveSubmit'} onClick={() => this.geocoder()}>Save</button>
+                                :
+                                <button className={'saveSubmit saveClick'} onClick={() => this.sendTodatabase()}>submit</button>
                             :
-                            <button className={'saveSubmit saveClick'} onClick={() => this.editGame()}>Edit</button>
+                            saveClick === false
+                                ?
+                                <button className={'saveSubmit'} onClick={() => this.geocoder()}>Save</button>
+                                :
+                                <button className={'saveSubmit saveClick'} onClick={() => this.editGame()}>Edit</button>
 
                     }
-                    
+
                 </div>
             </div>
         )

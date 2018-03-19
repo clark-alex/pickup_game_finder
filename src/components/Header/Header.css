@@ -6,7 +6,8 @@
     width: 100vw;
     justify-content: space-between;
     align-items: center;
-    background-color:rgb(252, 252, 252);
+    background: rgb(151, 151, 151)
+    /* background: linear-gradient(right, rgb(44, 41, 41), rgb(80, 79, 79)); */
     /* background-color:rgb(204, 47, 47); */
     /* transition: 3s; */
     
@@ -15,8 +16,21 @@
 .h3{
     margin: 0px;
     padding:20px;
-    background-color:rgb(252, 252, 252);
+    color: rgb(226, 225, 225);
+    /* background: linear-gradient(left, rgb(8, 8, 8), rgb(56, 56, 56)); */
+    background: rgb(172, 3, 25);
     /* transition: 3s */
+
+}
+.filterMenu{
+    height: 80px;
+    width: 100%;
+    background: white;
+    position: absolute;
+    top:-120px;
+}
+.filterSlide{
+    top:138px;
 }
 
 
@@ -42,11 +56,45 @@
     top: 80px;
     width: 100vw;
     height: 3px;
-    background: linear-gradient(right, rgb(14, 13, 13), rgb(109, 105, 105));
+    background: linear-gradient(right, rgb(226, 225, 225), rgb(34, 34, 34));
 }
 .underline1{
     position: relative;
     width: 100vw;
     height: 3px;
-    background: linear-gradient(right, rgb(14, 13, 13), rgb(109, 105, 105));
+    background: linear-gradient(left, rgb(226, 225, 225), rgb(34, 34, 34));
+}
+.underline1:nth-child(2){
+    background: linear-gradient(left, rgb(34, 34, 34),  rgb(226, 225, 225));
+
+}
+/* ham menu */
+.ham{
+    width: 35px;
+    height: 5px;
+    background-color:  rgb(34, 34, 34);
+    margin: 6px 0;
+    transition: .25s
+}
+
+.one{
+    transform: rotate(405deg) translate(9px,3px)
+    
+}
+.two{
+    background-color: rgba(255, 255, 255, 0);
+}
+.three{
+    transform: rotate(-405deg) translate(12px, -7px)
+}
+.user{
+   
+}
+.user{
+    font-size: 36px;
+    color:  rgb(34, 34, 34);
+}
+.logo{
+    padding-bottom: 10px;
+    color: rgb(250, 250, 250);
 }
