@@ -10,7 +10,7 @@
     width: 85vw;
     margin-top: 10px;
     transition: 1s;
-    height: 100px;
+    height: auto;
     overflow: hidden;
 
 }

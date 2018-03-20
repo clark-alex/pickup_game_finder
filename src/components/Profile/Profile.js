@@ -74,7 +74,7 @@ class Profile extends Component {
                     <h1>{e.title}</h1>
                     {/* <button onClick={()=>this.onMapClicked()}>X</button></h1> */}
                     {`Last updated ${e.month_created}/${e.day_created}/${e.year_created}`}
-                    <div className={'lineBreak'}></div>
+                    {/* <div className={'lineBreak'}></div>
                     <div className={'infoSection'}>
                         <h3>Contact Info</h3>
                         <h5>{e.username}</h5>
@@ -85,7 +85,7 @@ class Profile extends Component {
                         <div className={'lineBreak'}></div>
                         <h3>Game Information</h3>
                         <h5>{e.game_description}</h5>
-                    </div>                    
+                    </div>                     */}
                     <button className={'deleteButton'} onClick={()=>this.deleteSubs(e.subscribed_id)}>DELETE</button>
                 </div>
             )
@@ -106,7 +106,7 @@ class Profile extends Component {
                     <h1>{e.title}</h1>
                     {`Last updated ${e.month_created}/${e.day_created}/${e.year_created}`}
                     <div className={'lineBreak'}></div>
-                    <div className={'infoSection'}>
+                    {/* <div className={'infoSection'}>
                         <h3>Contact Info</h3>
                         <h5>{e.username}</h5>
                         <h5>{e.email}</h5>
@@ -117,7 +117,7 @@ class Profile extends Component {
                         <h3>Game Information</h3>
                         <h5>{e.game_description}</h5>
                         <Link to='/CreateGame'> <button className={'deleteButton'} onClick={()=>this.props.updateActiveGame(e.game_id)}>EDIT</button></Link>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             :

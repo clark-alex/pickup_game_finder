@@ -7,18 +7,20 @@ import MapContainer from '../maps/InitialMap'
 import GoogleMap from '../maps/GoogleMap'
 import Header from '../Header/Header'
 import './Dashboard.css'
+import { loadavg } from 'os';
 
 
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
+    
 
-
+    
     }
     componentWillMount() {
-        this.props.getUser();
-        this.props.getAllGames();
+
+       this.props.getAllGames();
         this.props.updateActiveGame(0);
 
 
@@ -34,6 +36,7 @@ class Dashboard extends Component {
         let id = this.props.user.id;
         this.props.getCurrentSubscriptions(id);
     }
+   
     render() {
 
         console.log('userid', this.props);
@@ -59,7 +62,7 @@ class Dashboard extends Component {
 
                     {/* {mappedGames} */}
                     <div >
-                        <MapContainer />
+                        <MapContainer tFn={this.testFn} />
                     </div>
                     {/* <GoogleMap/> */}
                 </div>

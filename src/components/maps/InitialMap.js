@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import axios from 'axios'
-import connect from 'react-redux'
-import { getAllGames } from '../../ducks/reducer'
+import {connect} from 'react-redux'
+import {  filterGames, getUser, getAllGames,updateActiveGame, updateGames, getCurrentSubscriptions } from '../../ducks/reducer';
 import './InitialMap.css'
 
 class MapContainer extends Component {
@@ -19,11 +19,15 @@ class MapContainer extends Component {
         this.onMarkerClick = this.onMarkerClick.bind(this)
         this.onMapClicked = this.onMapClicked.bind(this)
     }
-    componentDidMount() {
-        axios.get(`/api/creatorinfo/`)
-        .then(res => this.setState({games:res.data}))
-        axios.get('/auth/me').then(res=>this.setState({user:res.data}))
+    componentWillReceiveProps(newProps){
+        console.log('newProps',this.props.filteredGames);
+        
     }
+    // componentDidMount() {
+    //     axios.get(`/api/creatorinfo/`)
+    //     .then(res => this.setState({games:res.data}))
+        // axios.get('/auth/me').then(res=>this.setState({user:res.data}))
+    // }
    
     subscribe(x, y) {
         let uId = x;
@@ -37,7 +41,7 @@ class MapContainer extends Component {
             selectedPlace: props,
             showingInfoWindow: true
         });
-        this.state.games.map((e) => e.address === this.state.selectedPlace.name ? this.setState({ activeMarker: e }) : 'false')
+        this.props.games.map((e) => e.address === this.state.selectedPlace.name ? this.setState({ activeMarker: e }) : 'false')
 
     }
     joinClick(){
@@ -60,13 +64,25 @@ class MapContainer extends Component {
     render() {        
         console.log(this.state.activeMarker);
         console.log(this.state.selectedPlace.name)
-        console.log('map state', this.state);
+        console.log('map props', this.props);
         const {user, activeMarker, joinGameButton}=this.state;
         let style = {top:'79px'}
 
         let showingWindow = this.state.showingInfowindow;
         let actMarker = this.state.activeMarker
-        let mappedMarker = this.state.games.map((e, k) => {
+        let mappedMarker = this.props.filterToggle ? this.props.filteredGames.map((e, k) => {
+            return (
+
+                <Marker onClick={this.onMarkerClick}
+                    name={e.address}
+                    position={{
+                        lat: e.latitude,
+                        lng: e.longitude
+                    }} />
+            )
+        })
+        :
+        this.props.games.map((e, k) => {
             return (
 
                 <Marker onClick={this.onMarkerClick}
@@ -101,10 +117,12 @@ class MapContainer extends Component {
                     <div className={'lineBreak'}></div>
                     <h3>Location</h3>
                     <h5>{activeMarker.address}</h5>
+                    <h3>Time of Game</h3>
+                    <h5>{activeMarker.date_of_game}</h5>
                     <div className={'lineBreak'}></div>
                     <h3>Game Information</h3>
                     <h5>{activeMarker.game_description}</h5>
-                    <button onClick={()=>this.subscribe(user.id,activeMarker.game_id)} className={ !joinGameButton?'joinGame': 'joinGame clickJoin'} >Join Game</button>
+                    <button onClick={()=>this.subscribe(this.props.user.id,activeMarker.game_id)} className={ !joinGameButton?'joinGame': 'joinGame clickJoin'} >Join Game</button>
                     <br/>
                   </div>
                 </div>
@@ -136,9 +154,20 @@ class MapContainer extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        games: state.games,
+        subscriptions: state.subscriptions,
+        filteredGames: state.filteredGames,
+        filterToggle: state.filterToggle,
 
 
-export default GoogleApiWrapper({
+    }
+}
+
+const WrappedContainer = GoogleApiWrapper({
     apiKey: process.env.REACT_APP_GOOGLE_KEY
-})(MapContainer)
+})(MapContainer) 
+export default connect( mapStateToProps, {filterGames, getUser, getAllGames,updateActiveGame, updateGames, getCurrentSubscriptions }) (WrappedContainer) 
 

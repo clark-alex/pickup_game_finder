@@ -3,14 +3,21 @@ import './Header.css'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { getUser, getAllGames, updateGames, getCurrentSubscriptions, updateActiveGame } from '../../ducks/reducer';
+import { filterOneMonth, filterCurrentWeek, filterTwoWeeks, toggleFilter, filterGames, getUser, getAllGames, updateGames, getCurrentSubscriptions, updateActiveGame } from '../../ducks/reducer';
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
             menuClicked: false,
-            filterClicked: false
+            filterClicked: false,
+            sport: {
+                s1: 'Soccer',
+                s2: 'Ultimate',
+                s3: 'Rugby'
+            },
+            timeFilter: []
+
 
         }
     }
@@ -44,9 +51,28 @@ class Header extends Component {
             filterClicked: !this.state.filterClicked
         })
     }
+    filterProps() {
+        console.log(this.props.games.filter((x) => x.sport === this.refs.sport.value))
+    }
+    updateState(val) {
+        console.log('val', val);
+        let newTime = val
+        console.log(newTime)
+       let newDate =  Date.parse(new Date()) + newTime
+       console.log('current date',newDate);
+       
+        this.props.filterCurrentWeek(this.props.games, newDate)
+        
+    }
 
     render() {
-        console.log(this.state);
+        // console.log(this.state);
+        console.log('header props', this.props);
+        // console.log('x', this.props.games);
+        // console.log('y', this.refs.sport.value );
+
+
+
         let h1Style = { padding: '20px', transition: '3s' }
         let mappedGames = this.props.games.map((e, k) => {
             return (
@@ -77,11 +103,31 @@ class Header extends Component {
                 <div className={this.state.menuClicked ? 'dashboardMenu  slide2' : 'dashboardMenu'}>
                     <Link to='/CreateGame'><h3 onClick={() => this.props.updateActiveGame(-1)} className='h3' >Create a game</h3></Link>
                     <div className='underline1'></div>
-                    <div className={'h3'} onClick={()=>this.handleFilterClick()}> Filter </div>
+                    <div className={'h3'} onClick={() => this.handleFilterClick()}> Filter </div>
                     <div className='underline1'></div>
-                    <div className={this.state.filterClicked?'filterMenu filterSlide': 'filterMenu'}>
-                        filter menu
+                    <div className={this.state.filterClicked ? 'filterMenu filterSlide' : 'filterMenu'}>
+                        <h3>Filter by Sport</h3>
+                        <select className={'selectButton'} ref='sport' name='sport' onChange={() => this.props.filterGames(this.props.games, this.refs.sport.value)} >
+                            <option >--select--</option>
+                            <option >Soccer</option>
+                            <option>BasketBall</option>
+                            <option>Ultimate</option>
+                            <option>Rugby</option>
+                            <option>Volleyball</option>
+                            <option>Soft Ball</option>
 
+                        </select>
+                        <h3>filter by time of game</h3>
+                        <select className={'selectButton'} onChange={(e) => this.updateState(e.target.value)}>
+                            <option>--select--</option>
+                            <option value={604800000}>One Week</option>
+                            <option value={1209600000}>Two Weeks</option>
+                            <option value={2419200000}>One Month</option>
+                        </select>
+                        <div>
+                        <button className={'button'} onClick={() => this.props.toggleFilter(true)}>apply</button>
+                        <button className={'button'} onClick={() => this.props.toggleFilter(false)}>Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,8 +139,10 @@ function mapStateToProps(state) {
         user: state.user,
         games: state.games,
         subscriptions: state.subscriptions,
-        activeGame: state.activeGame
+        activeGame: state.activeGame,
+        filteredGames: state.filteredGames,
+        filterToggle: state.filterToggle,
     }
 }
 
-export default connect(mapStateToProps, { updateGames, updateActiveGame, getUser, getAllGames, getCurrentSubscriptions })(Header);
+export default connect(mapStateToProps, { filterTwoWeeks, filterOneMonth, filterCurrentWeek, toggleFilter, filterGames, updateGames, updateActiveGame, getUser, getAllGames, getCurrentSubscriptions })(Header);
