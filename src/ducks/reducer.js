@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { combineReducers } from '../../../../../../../Library/Caches/typescript/2.6/node_modules/redux';
-
 
 const initialState = {
     user: {},
