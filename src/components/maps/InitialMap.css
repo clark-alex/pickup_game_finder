@@ -28,6 +28,12 @@
 /* Info window contents */
 
 .title{
+    font-size: 33px;
+    font-weight: 600;
+}
+.subTitle{
+    font-size: 30px;
+    font-weight: 400;
 
 }
 .infoSection{
@@ -49,5 +55,18 @@
 .clickJoin{
      background: radial-gradient(black,white);
      color: white
+
+}
+.searchBar{
+    position: fixed;
+    bottom:26px;
+    left: 7px;
+}
+.searchButton{
+    background: white;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    height: 26px;
 
 }

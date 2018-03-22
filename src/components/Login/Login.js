@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getUser, getAllGames } from '../../ducks/reducer'
+import { getUser, getAllGames, getLocation } from '../../ducks/reducer'
 import './Login.css'
 
 
@@ -12,13 +12,17 @@ class Login extends Component {
     }
     componentWillMount() {
         this.props.getAllGames();
+        this.props.getLocation();
     }
 
     render() {
+        console.log('login props', this.props);
+
         return (
             <div className='login' >
                 <div className={'auth0'}>
-                    <div>Sportify</div>
+                    <img className={'loginLogo'} src={require('../images/LogoMakr_63KbJl.png')} />
+
                     <a className={'loginButton'} href={process.env.REACT_APP_LOGIN}>Login/Register</a>
                 </div>
             </div>
@@ -28,7 +32,8 @@ class Login extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
-        games: state.games
+        games: state.games,
+        userLocation: state.userLocation
     }
 }
-export default connect(mapStateToProps, { getAllGames, getUser })(Login)
+export default connect(mapStateToProps, { getAllGames, getUser, getLocation })(Login)

@@ -11,6 +11,8 @@ select
 , longitude
 , address
 , subscribed_id
+, games.game_id
+, games.creator_id
  from games
 join subscriptions on games.game_id = subscriptions.game_id
 join users on users.id = subscriptions.user_id

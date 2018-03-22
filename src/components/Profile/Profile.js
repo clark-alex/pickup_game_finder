@@ -64,36 +64,20 @@ class Profile extends Component {
         const { gameExpandClick, subExpand } = this.state
         let mappedSubs = this.props.subscriptions.map((e, k) => {
             return (
-                <div key={k} className={
-                        !subExpand
-                        ?
-                        'subscribed '
-                        :
-                        'subscribed gamesExpand'
-                }>
+                
+                <div key={k} className={'subscribed'}>
+                <Link to={`/games/${e.game_id}`}>
                     <h1>{e.title}</h1>
-                    {/* <button onClick={()=>this.onMapClicked()}>X</button></h1> */}
+                </Link>
                     {`Last updated ${e.month_created}/${e.day_created}/${e.year_created}`}
-                    {/* <div className={'lineBreak'}></div>
-                    <div className={'infoSection'}>
-                        <h3>Contact Info</h3>
-                        <h5>{e.username}</h5>
-                        <h5>{e.email}</h5>
-                        <div className={'lineBreak'}></div>
-                        <h3>Location</h3>
-                        <h5>{e.address}</h5>
-                        <div className={'lineBreak'}></div>
-                        <h3>Game Information</h3>
-                        <h5>{e.game_description}</h5>
-                    </div>                     */}
-                    <button className={'deleteButton'} onClick={()=>this.deleteSubs(e.subscribed_id)}>DELETE</button>
+                    {/* <button className={'deleteButton'} onClick={()=>this.deleteSubs(e.subscribed_id)}>DELETE</button> */}
                 </div>
+
             )
         }
 
 
         )
-        // console.log(mappedSubs);
         let createdGames = this.props.games.map((e, k) => this.props.user.id === e.creator_id ?
             <div onClick={()=>this.handleExpansionClick()}>
                 <div key={k} className={
@@ -103,21 +87,12 @@ class Profile extends Component {
                         :
                         'subscribed createdGames gamesExpand'
                 } >
+                
+        <Link to={`/games/${e.game_id}`}>
                     <h1>{e.title}</h1>
+            </Link>
                     {`Last updated ${e.month_created}/${e.day_created}/${e.year_created}`}
-                    <div className={'lineBreak'}></div>
-                    {/* <div className={'infoSection'}>
-                        <h3>Contact Info</h3>
-                        <h5>{e.username}</h5>
-                        <h5>{e.email}</h5>
-                        <div className={'lineBreak'}></div>
-                        <h3>Location</h3>
-                        <h5>{e.address}</h5>
-                        <div className={'lineBreak'}></div>
-                        <h3>Game Information</h3>
-                        <h5>{e.game_description}</h5>
-                        <Link to='/CreateGame'> <button className={'deleteButton'} onClick={()=>this.props.updateActiveGame(e.game_id)}>EDIT</button></Link>
-                    </div> */}
+
                 </div>
             </div>
             :
@@ -125,16 +100,18 @@ class Profile extends Component {
 
         return (
             <div onClick={()=>this.handleSubsClick()}>
-                <div>
-                    Profile
-                <br />
-                    <Link to='/dashboard'><button>Dashboard</button></Link>
-                </div>
                 <div className='subsContainer'>
-                    <h3>Created Games</h3>
-                    {createdGames}
+                <div className={'SubHeader'}>
+                    <Link to='/dashboard'><button className={'button subButton'}><i class="glyphicon glyphicon-chevron-left"></i></button></Link>
+                    <img className={'subLogoImg'} src={require('../images/LogoMakr_63KbJl.png')}/>
+                    <a href='http://localhost:3021/auth/logout'><button className={'button subButton'}>logout</button></a>
+
+
+                </div>
                     <h3>Subscribed Games</h3>
                     {mappedSubs}
+                    <h3>Created Games</h3>
+                    {createdGames}
                 </div>
 
             </div>

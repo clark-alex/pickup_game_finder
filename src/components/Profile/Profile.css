@@ -3,20 +3,49 @@
    display: flex;
    flex-direction: column;
    align-items: center;
-   justify-content: center; 
+   justify-content: space-between; 
+   background: linear-gradient(to top, rgb(54, 54, 54), rgb(134, 131, 131))
+   /* background-image: url('../images/background.jpeg');
+    background-size: cover;
+    background-position: right; */
+   
 }
+.SubHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    width: 100%;
+    /* background: grey; */
+    
+}
+/* .subsContainer a:link{
+    color: rgb(211, 207, 207);
+} */
 .subscribed{
-    background: rgb(173, 103, 103);
+    box-shadow: -5px 10px 25px #181818;
+    border-radius: 15px;
     width: 85vw;
-    margin-top: 10px;
+    margin-bottom: 20px;
     transition: 1s;
     height: auto;
     overflow: hidden;
+    background:  rgba(194, 189, 189, 0.712);
 
+    
 }
+.subscribed a:link{
+    color: rgb(20, 20, 20);
+}
+
 .createdGames{
-    background: rgb(123, 182, 123);
+    background: rgba(29, 28, 28, 0.5);
+    color: rgb(194, 189, 189);
+    font-weight: bolder;
    
+}
+.createdGames a:link{
+    color: rgb(194, 189, 189);
 }
 .gamesExpand{
     height: auto;
@@ -25,4 +54,22 @@
     height: 25px;
     width:  auto;
     background-color: lightgrey;
+}
+h3{
+    color: rgb(194, 189, 189);
+    font-weight: bold;
+    text-shadow: 1px 1px 3px #181818
+}
+.sub{
+    color:rgb(172, 3, 25);
+    text-shadow: .5px .5px 1px #ccc;
+}
+.subButton{
+    box-shadow: -5px 10px 25px #181818;
+    border-radius: 15px;
+    background: rgba(29, 28, 28, 0.226);
+    font-weight: 300;
+    outline: none;
+    border: none;
+    line-height: none;
 }

@@ -3,7 +3,7 @@ import './Header.css'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { filterOneMonth, filterCurrentWeek, filterTwoWeeks, toggleFilter, filterGames, getUser, getAllGames, updateGames, getCurrentSubscriptions, updateActiveGame } from '../../ducks/reducer';
+import {  filterCurrentWeek, toggleFilter, filterGames, getUser, getAllGames, updateGames, getCurrentSubscriptions, updateActiveGame } from '../../ducks/reducer';
 
 class Header extends Component {
     constructor(props) {
@@ -24,10 +24,12 @@ class Header extends Component {
     componentWillMount() {
         this.props.getUser();
         this.props.getAllGames();
-
-
-
     }
+    // componentWillReceiveProps(){
+    //     console.log(this.props.user.id);
+    //     this.props.getCurrentSubscriptions(this.props.user.id);
+
+    // }
     subscribe(x, y) {
         let uId = x;
         let gId = y;
@@ -55,13 +57,15 @@ class Header extends Component {
         console.log(this.props.games.filter((x) => x.sport === this.refs.sport.value))
     }
     updateState(val) {
-        console.log('val', val);
-        let newTime = val
-        console.log(newTime)
-       let newDate =  Date.parse(new Date()) + newTime
-       console.log('current date',newDate);
+        console.log(typeof val);
+        
+        console.log('val of one week', val);
+        let newTime = Date.parse(new Date())
+        console.log( 'current date', (newTime))
+       var x =  newTime + +val;
+       console.log('value of current + one week',x);
        
-        this.props.filterCurrentWeek(this.props.games, newDate)
+        this.props.filterCurrentWeek(this.props.games, x)
         
     }
 
@@ -84,29 +88,27 @@ class Header extends Component {
         return (
             <div>
                 <div className='mainHeader'>
-                    <div className={'iconButton'}>
-                        <div onClick={() => this.handleClick()}>
+                    {/* <div className={'button subButton darker headerButtons headerButton'}> */}
+                    <div className={'button subButton'}>
+                        <div className={'paraSaan'} onClick={() => this.handleClick()}>
                             <div className={this.state.menuClicked ? 'ham one' : 'ham'}></div>
                             <div className={this.state.menuClicked ? 'ham two' : 'ham'}></div>
                             <div className={this.state.menuClicked ? 'ham three' : 'ham'}></div>
                         </div>
                     </div>
                     <div>
-                        <h1 className={'logo'}>Sportify</h1>
+                        <img className={'subLogoImg'} src={require('../images/LogoMakr_63KbJl.png')}/>
                     </div>
-                    <div className='iconButton'>
-                        <Link to='/profile'><span className={'user'} onClick={() => this.getSubs()}><i class="glyphicon glyphicon-user"></i></span></Link>
-                    </div>
-                </div>
-                <div className='underline'>
+                    <div >
+                    <Link to='/profile'><button className={'button subButton darker'}><i class="glyphicon glyphicon-user"></i></button></Link>                    </div>
+                    {/* <Link to='/profile'><button className={'button subButton darker'}><i class=" glyphicons glyphicons-soccer-ball"></i></button></Link>                    </div> */}
                 </div>
                 <div className={this.state.menuClicked ? 'dashboardMenu  slide2' : 'dashboardMenu'}>
-                    <Link to='/CreateGame'><h3 onClick={() => this.props.updateActiveGame(-1)} className='h3' >Create a game</h3></Link>
-                    <div className='underline1'></div>
-                    <div className={'h3'} onClick={() => this.handleFilterClick()}> Filter </div>
-                    <div className='underline1'></div>
+                    <Link to='/CreateGame'><div onClick={() => this.props.updateActiveGame(-1)} className='h3 taas' >Create a game</div></Link>
+                    <div className='h3' onClick={() => this.handleFilterClick()}> Filter </div>
+                    {/* <div className='underline1'></div> */}
                     <div className={this.state.filterClicked ? 'filterMenu filterSlide' : 'filterMenu'}>
-                        <h3>Filter by Sport</h3>
+                        <div className={'salita'}>Filter by Sport</div>
                         <select className={'selectButton'} ref='sport' name='sport' onChange={() => this.props.filterGames(this.props.games, this.refs.sport.value)} >
                             <option >--select--</option>
                             <option >Soccer</option>
@@ -117,7 +119,7 @@ class Header extends Component {
                             <option>Soft Ball</option>
 
                         </select>
-                        <h3>filter by time of game</h3>
+                        <div className={'salita'}>filter by time of game</div>
                         <select className={'selectButton'} onChange={(e) => this.updateState(e.target.value)}>
                             <option>--select--</option>
                             <option value={604800000}>One Week</option>
@@ -125,8 +127,8 @@ class Header extends Component {
                             <option value={2419200000}>One Month</option>
                         </select>
                         <div>
-                        <button className={'button'} onClick={() => this.props.toggleFilter(true)}>apply</button>
-                        <button className={'button'} onClick={() => this.props.toggleFilter(false)}>Cancel</button>
+                        <button className={'filterButton   '} onClick={() => this.props.toggleFilter(true)}>apply</button>
+                        <button className={' filterButton'} onClick={() => this.props.toggleFilter(false)}>Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -145,4 +147,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { filterTwoWeeks, filterOneMonth, filterCurrentWeek, toggleFilter, filterGames, updateGames, updateActiveGame, getUser, getAllGames, getCurrentSubscriptions })(Header);
+export default connect(mapStateToProps, { filterCurrentWeek, toggleFilter, filterGames, updateGames, updateActiveGame, getUser, getAllGames, getCurrentSubscriptions })(Header);

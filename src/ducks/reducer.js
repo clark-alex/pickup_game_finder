@@ -9,6 +9,7 @@ const initialState = {
     activeGame: [0],
     filteredGames: [0],
     filterToggle: false,
+    userLocation: []
 }
 
 const GET_USER = 'GET_USER'
@@ -22,9 +23,9 @@ const UPDATE_ACTIVE_GAME = 'UPDATE_ACTIVE_GAME'
 const FILTER_GAMES = 'FILTER_GAMES'
 const TOGGLE_FILTER = 'TOGGLE_FILTER'
 const FILTER_CURRENT_WEEK = 'FILTER_CURRENT_WEEK'
-const FILTER_TWO_WEEKS = 'FILTER_TWO_WEEKS'
-const FILTER_ONE_MONTH = 'FILTER_ONE_MONTH'
-
+// const FILTER_TWO_WEEKS = 'FILTER_TWO_WEEKS'
+// const FILTER_ONE_MONTH = 'FILTER_ONE_MONTH'
+const GET_LOCATION = 'GET_LOCATION'
 
 
 
@@ -86,36 +87,68 @@ export function filterGames(obj, sport) {
         payload: newArr
     }
 }
-export function filterCurrentWeek(obj,time) {
+export function filterCurrentWeek(obj, time) {
     // let currentDate = (Date.parse(new Date()) + time)
     // console.log('current date', currentDate);
-    console.log('should be date',Date.parse(new Date()) + 604800000 );
-    
+    console.log('should be date', Date.parse(new Date()) + 604800000);
+
     let currentWeek = obj.filter((x) => Date.parse(x.date_of_game) <= time)
     console.log('current week', currentWeek);
-    
+
     return {
         type: FILTER_CURRENT_WEEK,
         payload: currentWeek
     }
 }
-// 604800000
-export function filterTwoWeeks(obj) {
-    let currentDate = Date.parse(new Date()) + 1209600000
-    let currentWeek = obj.filter((x) => Date.parse(x.date_of_game) <= currentDate)
+export function getLocation() {
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 200000,
+        maximumAge: 0
+    };
+    function success(pos) {
+        var crd = pos.coords;
+
+        // this.setState({
+        //     latitude: crd.latitude,
+        //     longitude: crd.longitude
+
+        // })
+        console.log('fired'),
+        console.log('Your current position is:');
+        console.log(`Latitude : ${crd.latitude}`);
+        console.log(`Longitude: ${crd.longitude}`);
+        console.log(`More or less ${crd.accuracy} meters.`);
+        return [crd.latitude,crd.longitude]
+    }
+
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    let location = navigator.geolocation.getCurrentPosition(success, error, options);
     return {
-        type: FILTER_TWO_WEEKS,
-        payload: currentWeek
+        type: GET_LOCATION,
+        payload: location
     }
 }
-export function filterOneMonth(obj) {
-    let currentDate = Date.parse(new Date()) + 2419200000
-    let currentWeek = obj.filter((x) => Date.parse(x.date_of_game) <= currentDate)
-    return {
-        type: FILTER_ONE_MONTH,
-        payload: currentWeek
-    }
-}
+// // 604800000
+// export function filterTwoWeeks(obj) {
+//     let currentDate = Date.parse(new Date()) + 1209600000
+//     let currentWeek = obj.filter((x) => Date.parse(x.date_of_game) <= currentDate)
+//     return {
+//         type: FILTER_TWO_WEEKS,
+//         payload: currentWeek
+//     }
+// }
+// export function filterOneMonth(obj) {
+//     let currentDate = Date.parse(new Date()) + 2419200000
+//     let currentWeek = obj.filter((x) => Date.parse(x.date_of_game) <= currentDate)
+//     return {
+//         type: FILTER_ONE_MONTH,
+//         payload: currentWeek
+//     }
+// }
 // export function updateActiveGame(activeGame) {
 //     return {
 //         type: UPDATE_ACTIVE_GAME,
@@ -161,10 +194,12 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { filterToggle: action.payload })
         case FILTER_CURRENT_WEEK:
             return Object.assign({}, state, { filteredGames: action.payload })
-        case FILTER_TWO_WEEKS:
-            return Object.assign({}, state, { filteredGames: action.payload })
-        case FILTER_ONE_MONTH:
-            return Object.assign({}, state, { filteredGames: action.payload })
+        case GET_LOCATION:
+            return Object.assign({}, state, { userLocation: action.payload })
+        // case FILTER_TWO_WEEKS:
+        //     return Object.assign({}, state, { filteredGames: action.payload })
+        // case FILTER_ONE_MONTH:
+        //     return Object.assign({}, state, { filteredGames: action.payload })
 
         default: return state;
     }

@@ -22,8 +22,8 @@
     width: 80vw;
     background: linear-gradient(
     to left,
-    rgba(79, 79, 80, 0.829),
-    rgb(17, 17, 17) 
+    rgb(134, 134, 134),
+    rgb(182, 182, 182) 
     );
     color:rgb(151, 151, 151);
     text-shadow: -2px 2px 20px rgb(125, 128, 125);
@@ -45,7 +45,7 @@
     font-weight:900;
     
     
-    margin-top: 40px;
+    margin-top: 20px;
     text-justify: center; 
     border-radius: 10px;
     background-color: rgb(255, 255, 255);

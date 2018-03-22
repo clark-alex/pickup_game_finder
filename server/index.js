@@ -37,12 +37,14 @@ passport.use(new Auth0Strategy({
     clientID: CLIENT_ID,
     clientSecret:CLIENT_SECRET,
     callbackURL:CALLBACK_URL,
-    scope:'openid email profile'
+    scope:'openid email  profile'
 },function(accessToken, refreshToken, extraParams, profile, done){
     const db = app.get('db')
     db.find_user([profile.id]).then( users => {
+        console.log(profile);
+        
         if (!users[0]){
-            db.create_user([profile.id, profile.displayName, profile._json.email, profile.picture]).then(res=>{
+            db.create_user([profile.id, profile.displayName, profile._json.email, profile.picture, profile.location]).then(res=>{
                 done(null, res[0].id);
             })
         } else{

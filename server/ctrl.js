@@ -49,7 +49,7 @@ module.exports = {
 
         
         db.delete_subscription([req.params.id])
-        .then(()=>res.status(200).send())
+        .then((x)=>res.status(200).send(x))
         .catch(()=>res.status(500).send())
     },
     getActiveGame: (req,res)=>{

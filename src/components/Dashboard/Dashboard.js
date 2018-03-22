@@ -62,7 +62,7 @@ class Dashboard extends Component {
 
                     {/* {mappedGames} */}
                     <div >
-                        <MapContainer tFn={this.testFn} />
+                        <MapContainer />
                     </div>
                     {/* <GoogleMap/> */}
                 </div>

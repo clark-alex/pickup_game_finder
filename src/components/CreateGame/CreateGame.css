@@ -1,5 +1,8 @@
 .createInput{
-    background: lightgrey;
+    /* background: lightgrey; */
+    border-top: 10px;
+    border-right: none;
+    border-left: none;
     width: 80vw;
     height:30px;
     text-align: center;
@@ -11,17 +14,25 @@
     text-align-last: center;
 
 }
+.dateAndTime{
+    width: 54vw;
+    border:none;
+    border-radius: 5px;
+}
 .saveSubmit{
-    margin-top: 10px;
+    margin-top: 25px;
     height: 40px;
     width: 25vw;
     background: lightgrey;
     outline: none;
-    transition: .05s;
 }
 
 .saveClick{
     height: 45px;
     width: 30vw;
-    background: yellow;
+    background: #d33735;
+    color: whitesmoke;
+}
+.darker{
+    color: rgb(41, 40, 40);
 }
