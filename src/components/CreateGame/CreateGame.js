@@ -140,7 +140,7 @@ class CreateGame extends Component {
                     <Link to='/dashboard'><button className={'button subButton darker'}><i class="glyphicon glyphicon-home"></i></button></Link>
                     <img className={'subLogoImg'} src={require('../images/LogoMakr_63KbJl.png')} />
 
-                    <a href='http://localhost:3021/auth/logout'><button className={'button subButton darker'}>logout</button></a>
+                    <a href={process.env.REACT_APP_LOGOUT}><button className={'button subButton darker'}>logout</button></a>
 
 
                 </div>

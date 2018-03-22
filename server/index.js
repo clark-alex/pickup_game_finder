@@ -15,10 +15,13 @@ const {
     DOMAIN,
     CLIENT_ID,
     CLIENT_SECRET,
-    CALLBACK_URL
+    CALLBACK_URL,
+    SUCCESSREDIRECT,
+    FAILUREREDIRECT
 } =  process.env;
 
 const app= express();
+app.use(express.static(`${__dirname}/../build`));
 app.use(bodyParser.json());
 
 massive(CONNECTION_STRING).then(db=>{
@@ -66,8 +69,8 @@ passport.deserializeUser((id, done)=>{
 
 app.get('/auth', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0',{
-    successRedirect: 'http://localhost:3000/#/dashboard',
-    failureRedirect: 'http://localhost:3000'
+    successRedirect: SUCCESSREDIRECT,
+    failureRedirect: FAILUREREDIRECT
 }))
 
 app.get('/auth/me',(req,res)=> {
@@ -79,7 +82,7 @@ app.get('/auth/me',(req,res)=> {
 })
 app.get('/auth/logout', (req,res)=> {
     req.logOut();
-    res.redirect('http://localhost:3000/')
+    res.redirect(FAILUREREDIRECT)
 })
 
 // API ENDPOINTS

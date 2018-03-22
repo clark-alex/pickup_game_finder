@@ -104,7 +104,7 @@ class Profile extends Component {
                 <div className={'SubHeader'}>
                     <Link to='/dashboard'><button className={'button subButton'}><i class="glyphicon glyphicon-chevron-left"></i></button></Link>
                     <img className={'subLogoImg'} src={require('../images/LogoMakr_63KbJl.png')}/>
-                    <a href='http://localhost:3021/auth/logout'><button className={'button subButton'}>logout</button></a>
+                    <a href={process.env.REACT_APP_LOGOUT}><button className={'button subButton'}>logout</button></a>
 
 
                 </div>
