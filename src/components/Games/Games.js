@@ -13,6 +13,11 @@ class Games extends Component {
         axios.delete(`/api/deletesub/${id}`)
             .then((res) => console.log(res.data))
     }
+    deleteGame(id){
+        axios.delete(`/api/deleteCreatedGame/${id}`)
+        .then((res)=> console.log(res.data))
+        // res.data===200?alert('Successfully Deleted'):alert('try again later'))
+    }
 
     render() {
         console.log('games props', this.props);
@@ -40,7 +45,7 @@ class Games extends Component {
                             :
                             ''
                     }
-                    <h1>{x.title}</h1>
+                    <h1 className={'gameTitle'}>{x.title}</h1>
                     {`Last updated ${x.month_created}/${x.day_created}/${x.year_created}`}
                     <div>
                         <h1>Location</h1>
@@ -67,6 +72,14 @@ class Games extends Component {
                         <Link to='/CreateGame'><button className={'button subButton'} onClick={() => this.props.updateActiveGame(x.game_id)} >edit</button></Link>
                         :
                         <Link to={'/profile'}><button className={'button subButton'} onClick={() => this.deleteSubs(subId[0].subscribed_id)}>Delete</button></Link>
+                }
+                   {
+                    +this.props.user.id === +x.creator_id
+                        ?
+
+                        <Link to='/profile'><button className={'button subButton'} onClick={() => this.deleteGame(x.game_id)} >Delete</button></Link>
+                        :
+                        ''
                 }
                 {/* {
 

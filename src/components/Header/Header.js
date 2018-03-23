@@ -87,6 +87,7 @@ class Header extends Component {
         )
         return (
             <div>
+                {/* ------------------------------ */}
                 <div className='mainHeader'>
                     {/* <div className={'button subButton darker headerButtons headerButton'}> */}
                     <div className={'button subButton'}>
@@ -103,6 +104,23 @@ class Header extends Component {
                     <Link to='/profile'><button className={'button subButton darker'}><i class="glyphicon glyphicon-user"></i></button></Link>                    </div>
                     {/* <Link to='/profile'><button className={'button subButton darker'}><i class=" glyphicons glyphicons-soccer-ball"></i></button></Link>                    </div> */}
                 </div>
+                {/* ---------------------------------------- */}
+                <div className='fullHeader'>
+                    {/* <div className={'button subButton darker headerButtons headerButton'}> */}
+                    <div className='fullHeadLeft'>
+                       <button className={'fullHeaderButton spacing'}>Create a Game</button>
+                        <button className={'fullHeaderButton'} onClick={() => this.handleFilterClick()}>Filter Current Games</button>
+                    </div>
+                    <div>
+                        <img className={'subLogoImg'} src={require('../images/LogoMakr_63KbJl.png')}/>
+                    </div>
+                    <div className={'fullHeadRight'} >
+                    <Link to='/profile'><button className={'fullHeaderButton spacing'}>Profile</button></Link>
+                    <a href={process.env.REACT_APP_LOGOUT}><button className={'fullHeaderButton'}>logout</button></a>
+                    </div>
+                    {/* <Link to='/profile'><button className={'button subButton darker'}><i class=" glyphicons glyphicons-soccer-ball"></i></button></Link>                    </div> */}
+                </div>
+                {/* -------------------------------------------- */}
                 <div className={this.state.menuClicked ? 'dashboardMenu  slide2' : 'dashboardMenu'}>
                     <Link to='/CreateGame'><div onClick={() => this.props.updateActiveGame(-1)} className='h3 taas' >Create a game</div></Link>
                     <div className='h3' onClick={() => this.handleFilterClick()}> Filter </div>

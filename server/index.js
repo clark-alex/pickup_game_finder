@@ -21,7 +21,7 @@ const {
 } =  process.env;
 
 const app= express();
-app.use(express.static(`${__dirname}/../build`));
+// app.use(express.static(`${__dirname}/../build`));
 app.use(bodyParser.json());
 
 massive(CONNECTION_STRING).then(db=>{
@@ -44,7 +44,6 @@ passport.use(new Auth0Strategy({
 },function(accessToken, refreshToken, extraParams, profile, done){
     const db = app.get('db')
     db.find_user([profile.id]).then( users => {
-        console.log(profile);
         
         if (!users[0]){
             db.create_user([profile.id, profile.displayName, profile._json.email, profile.picture, profile.location]).then(res=>{
@@ -93,6 +92,7 @@ app.post('/api/subscribe', ctrl.subscribe)
 app.get('/api/currentsubscriptions/:id', ctrl.getCurrentSubscriptions)
 app.get('/api/creatorinfo', ctrl.getCreatorInfo)
 app.delete('/api/deletesub/:id', ctrl.deleteSubscription)
+app.delete('/api/deleteCreatedGame/:id', ctrl.deleteGame)
 app.get('/api/getActiveGame/:id', ctrl.getActiveGame)
 app.put('/api/edit/:id', ctrl.edit)
 

@@ -7,7 +7,7 @@
 .window{
     align-items: center;
     z-index: 50;
-    position: absolute;
+    position: fixed;
     height: 50vh;
     width: 80vw;
     background: white;
@@ -22,6 +22,8 @@
 }
 .slide{
     bottom: 150px;
+    box-shadow: -2px 2px 25px rgb(56, 56, 56);
+
 
 }
 
@@ -30,6 +32,8 @@
 .title{
     font-size: 33px;
     font-weight: 600;
+    color: #d64443;
+    text-shadow: -1px 1px 4px rgb(139, 139, 139);
 }
 .subTitle{
     font-size: 30px;

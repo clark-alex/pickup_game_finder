@@ -52,6 +52,14 @@ module.exports = {
         .then((x)=>res.status(200).send(x))
         .catch(()=>res.status(500).send())
     },
+    deleteGame: (req,res)=>{
+        const db = req.app.get('db')
+        console.log(req.params.id);
+        
+        db.delete_created_game([req.params.id])
+        .then((x)=>res.status(200).send(x))
+        .catch(()=>res.status(500).send())
+    },
     getActiveGame: (req,res)=>{
         const db = req.app.get('db')
         console.log(req.params.id);

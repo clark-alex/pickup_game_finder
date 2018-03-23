@@ -73,3 +73,7 @@ h3{
     border: none;
     line-height: none;
 }
+.buttonpress{
+    box-shadow: none;
+    background: #00000000
+}

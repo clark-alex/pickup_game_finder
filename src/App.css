@@ -1,28 +1,109 @@
-.App {
-  text-align: center;
-}
+@media(min-width: 700px){
+  /* Log in page */
+  .auth0{
+    width:40vw;
+  }
+  .loginButton{
+    width: 30vw;
+  }
+  .loginButton:hover{
+    background: #932120;
+    color: rgb(226, 225, 225);
+  }
+  /* Dashboard */
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
+  .mainHeader{
+    display: none;
+  }
+  .fullHeader{
+    z-index: 20;
+    position: fixed;
+    display: flex;
+    height: 70px;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: center;
+    background: rgb(151, 151, 151);
+    box-shadow: -2px 2px 25px rgb(56, 56, 56);
+  }
+  .fullHeaderButton{
+    font-size: 16px;
+    background: none;
+    border: none;
+    color: black;
+  }
+  .fullHeaderButton:hover{
+    color: #932120;
+    text-decoration: underline #932120;
+  }
+  .filterMenu{
+    top:150px;
+    left:-300px;
+    height: 60px;
+    box-shadow: -2px 2px 25px rgb(56, 56, 56);
+    justify-content: space-around;
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
+  }
+  .filterSlide{
+    left: 0px;
+    /* background: rgb(151, 151, 151); */
+    width: 100vw;
+    flex-direction: row;
+  }
+  .salita{
+    font-size: 14px;
+    
+  }
+  .selectButton{
+    width: 100px;
+    color:black;
+  }
+  .selectButton:hover{
+    background: #5b1414;
+    color: rgb(226, 225, 225);
 
-.App-title {
-  font-size: 1.5em;
-}
+  }
+  .filterButton{
+    box-shadow: none;
+  }
+  .filterButton:hover{
+    /* background: #932120; */
+    background: #5b1414;
+    color: rgb(226, 225, 225);
+    border: rgb(226, 225, 225);
+    border-width: 2px;
+  }
+  .fullHeadLeft{
+    width: 300px;
+  }
+  .fullHeadRight{
+    width: 300px;
+    display: flex;
+    justify-content: center;
+  }
+  .spacing{
+    padding-right: 15px;
+  }
+  /* Profile page */
+  .subscribed{
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+  }
+  .subscribed:hover{
+    width:42vw;
+    height: 95px;
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    
+  }
+  .gameInfo{
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

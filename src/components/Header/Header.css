@@ -62,7 +62,7 @@
 }
 .filterButton{
     width: 70px;
-    height: 5vh;
+    height: 36px;
     /* background: rgb(250, 250, 250);
     color: black;
     border-radius: 15px;
@@ -104,7 +104,7 @@
 }
 .slide2 {
     position: relative;
-    top:80px;
+    top:-30px;
 }
 .iconButton{
     padding-left: 15px;
@@ -139,14 +139,18 @@
 }
 
 .one{
-    transform: rotate(405deg) translate(7px,5px)
+    transform: rotate(405deg) translate(7px,5px);
+    /* box-shadow: -2px 2px 25px rgb(125, 128, 125); */
+
     
 }
 .two{
     background-color: rgba(255, 255, 255, 0);
 }
 .three{
-    transform: rotate(-405deg) translate(10px, -9px)
+    transform: rotate(-405deg) translate(10px, -9px);
+    /* box-shadow: -2px 2px 25px rgb(125, 128, 125); */
+
 }
 .user{
    
@@ -163,7 +167,7 @@
 }
 .button{
     width: 70px;
-    height: 5vh;
+    height: 36px;
     /* background: rgb(250, 250, 250);
     color: black;
     border-radius: 15px;
@@ -198,3 +202,4 @@
 .salita{
     font-size: 24px;
 }
+
