@@ -23,6 +23,7 @@
     color: rgb(211, 207, 207);
 } */
 .subscribed{
+    text-align: center;
     box-shadow: -5px 10px 25px #181818;
     border-radius: 15px;
     width: 85vw;
@@ -31,11 +32,13 @@
     height: auto;
     overflow: hidden;
     background:  rgba(194, 189, 189, 0.712);
+    color: #413f3f;
+    font-weight: bolder;
 
     
 }
 .subscribed a:link{
-    color: rgb(20, 20, 20);
+    color: #413f3f;
 }
 
 .createdGames{

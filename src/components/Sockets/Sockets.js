@@ -105,7 +105,7 @@ class Socket extends Component {
                         
                         <p>{ (this.state.usersInfo.filter((x)=>x.id===e.socket_user_id)).userName}</p>
                     <div className='messageInfo'>
-                    <p>{'filter-socket', this.state.usersInfo.filter((x)=>x.id===e.socket_user_id)[0]?this.state.usersInfo.filter((x)=>x.id===e.socket_user_id)[0].username:''}</p>
+                    <p>{this.state.usersInfo.filter((x)=>x.id===e.socket_user_id)[0]?this.state.usersInfo.filter((x)=>x.id===e.socket_user_id)[0].username:''}</p>
                     <p>{`-${e.time_stamp}`}</p>
                     </div>
 
@@ -120,8 +120,15 @@ class Socket extends Component {
                     {messages}
                 </div>
                 <div className="input">
+                    {
+                        !this.state.messages[0]
+                        ?
+                        <h1 className={'gameTitle'}> Start the Conversation!</h1>
+                        :
+                        ''
+                    }
                     <input ref="message" className={'messageInput'} />
-                    <button onClick={this.sendMessage}>Send</button>
+                    <button className='sendButton' onClick={this.sendMessage}>Send</button>
                 </div>
             </div>
         );
