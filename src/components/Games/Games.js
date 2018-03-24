@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getCurrentSubscriptions, getUser, getAllGames, deleteSubscription, updateActiveGame } from '../../ducks/reducer'
 import axios from 'axios';
 import './Games.css'
+import Socket from '../Sockets/Sockets'
 class Games extends Component {
     constructor(props) {
         super(props);
@@ -13,9 +14,9 @@ class Games extends Component {
         axios.delete(`/api/deletesub/${id}`)
             .then((res) => console.log(res.data))
     }
-    deleteGame(id){
+    deleteGame(id) {
         axios.delete(`/api/deleteCreatedGame/${id}`)
-        .then((res)=> console.log(res.data))
+            .then((res) => console.log(res.data))
         // res.data===200?alert('Successfully Deleted'):alert('try again later'))
     }
 
@@ -28,16 +29,8 @@ class Games extends Component {
 
         let mappedGames = this.props.games.map((x, k) => +currentGameId === +x.game_id
             ?
-            <div key={k} className={'gameContainer'}>
-                <div className={'SubHeader'}>
-                    <Link to='/profile'><button className={'button subButton'}><i class="glyphicon glyphicon-chevron-left"></i></button></Link>
-                    <img className={'subLogoImg'} src={require('../images/LogoMakr_63KbJl.png')} />
-
-                    <a href={process.env.REACT_APP_LOGOUT}><button className={'button subButton'}>logout</button></a>
-
-
-                </div>
-                <div className={'gameInfo'}>
+            <div key={k}>
+                <div>
                     {
                         +this.props.user.id === +x.creator_id
                             ?
@@ -65,23 +58,23 @@ class Games extends Component {
                     </div>
                 </div>
                 <div>
-                {
-                    +this.props.user.id === +x.creator_id
-                        ?
+                    {
+                        +this.props.user.id === +x.creator_id
+                            ?
 
-                        <Link to='/CreateGame'><button className={'button subButton'} onClick={() => this.props.updateActiveGame(x.game_id)} >edit</button></Link>
-                        :
-                        <Link to={'/profile'}><button className={'button subButton'} onClick={() => this.deleteSubs(subId[0].subscribed_id)}>Delete</button></Link>
-                }
-                   {
-                    +this.props.user.id === +x.creator_id
-                        ?
+                            <Link to='/CreateGame'><button className={'button subButton'} onClick={() => this.props.updateActiveGame(x.game_id)} >edit</button></Link>
+                            :
+                            <Link to={'/profile'}><button className={'button subButton'} onClick={() => this.deleteSubs(subId[0].subscribed_id)}>Delete</button></Link>
+                    }
+                    {
+                        +this.props.user.id === +x.creator_id
+                            ?
 
-                        <Link to='/profile'><button className={'button subButton'} onClick={() => this.deleteGame(x.game_id)} >Delete</button></Link>
-                        :
-                        ''
-                }
-                {/* {
+                            <Link to='/profile'><button className={'button subButton'} onClick={() => this.deleteGame(x.game_id)} >Delete</button></Link>
+                            :
+                            ''
+                    }
+                    {/* {
 
                     +this.props.user.id === +x.creator_id
                         ?
@@ -96,8 +89,21 @@ class Games extends Component {
             console.log('you have failed', x.game_id)
         )
         return (
-            <div>
-                {mappedGames}
+            <div className='gameContainer'>
+                <div className={'SubHeader'}>
+                    <Link to='/profile'><button className={'button subButton'}><i class="glyphicon glyphicon-chevron-left"></i></button></Link>
+                    <img className={'subLogoImg'} src={require('../images/LogoMakr_63KbJl.png')} />
+
+                    <a href={process.env.REACT_APP_LOGOUT}><button className={'button subButton'}>logout</button></a>
+
+
+                </div>
+                <div className='gameInfo'>
+                    {mappedGames}
+                </div>
+                <div className='gameInfo'>
+                    <Socket currentGameId={currentGameId} userId={this.props.user.id} userInfo={this.props.user} />
+                </div>
             </div>
         );
     }

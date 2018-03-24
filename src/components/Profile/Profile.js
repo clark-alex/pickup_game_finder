@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentSubscriptions, getUser, getAllGames, deleteSubscription, updateActiveGame } from '../../ducks/reducer'
 import './Profile.css'
+import Socket from '../Sockets/Sockets'
 import axios from 'axios'
 
 
@@ -113,7 +114,9 @@ class Profile extends Component {
                     <h3>Created Games</h3>
                     {createdGames}
                 </div>
-
+            <div>
+                {/* <Socket/> */}
+                </div>
             </div>
         )
     }

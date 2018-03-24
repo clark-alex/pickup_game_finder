@@ -1,5 +1,5 @@
 select 
-	title
+title
 , sport
 , game_description
 , competition_level

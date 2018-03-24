@@ -82,6 +82,20 @@ module.exports = {
         .then(()=>res.status(200).send())
         .catch(()=>res.status(500).send())
 
+    },
+    getMessages: (req,res)=>{
+        const db = req.app.get('db')
+        
+        db.get_messages([req.params.id])
+        .then((x)=>res.status(200).send(x))
+        .catch(()=>res.status(500).send())
+    },
+    getAllUsers: (req,res)=>{
+        const db = req.app.get('db')
+
+        db.get_all_users()
+        .then((x)=>res.status(200).send(x))
+        .catch(()=>res.status(500).send())
     }
     
 
