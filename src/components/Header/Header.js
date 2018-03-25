@@ -108,10 +108,11 @@ class Header extends Component {
                 <div className='fullHeader'>
                     {/* <div className={'button subButton darker headerButtons headerButton'}> */}
                     <div className='fullHeadLeft'>
-                       <button className={'fullHeaderButton spacing'}>Create a Game</button>
+                       <Link to={'/creategame'}><button className={'fullHeaderButton spacing'}>Create a Game</button></Link>
                         <button className={'fullHeaderButton'} onClick={() => this.handleFilterClick()}>Filter Current Games</button>
                     </div>
                     <div>
+                    <img className={'subLogoImg'} src={require('../images/LogoMakr_63KbJl.png')}/>
                     </div>
                     <div className={'fullHeadRight'} >
                     <Link to='/profile'><button className={'fullHeaderButton spacing'}>Profile</button></Link>
