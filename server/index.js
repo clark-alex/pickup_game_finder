@@ -23,7 +23,7 @@ const {
 
 const app = express()
     , io = socket(app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`)));
-// app.use(express.static(`${__dirname}/../build`));
+app.use(express.static(`${__dirname}/../build`));
 app.use(bodyParser.json());
 
 massive(CONNECTION_STRING).then(db => {
