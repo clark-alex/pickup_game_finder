@@ -104,7 +104,8 @@
 }
 .slide2 {
     position: relative;
-    top:-30px;
+    top:79px; 
+    text-align: center;
 }
 .iconButton{
     padding-left: 15px;
@@ -202,4 +203,6 @@
 .salita{
     font-size: 24px;
 }
-
+.fullHeader{
+    display: none;
+}
