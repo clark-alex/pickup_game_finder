@@ -135,6 +135,8 @@ class Header extends Component {
                             <option>Rugby</option>
                             <option>Volleyball</option>
                             <option>Soft Ball</option>
+                            <option>Football</option>
+
 
                         </select>
                         <div className={'salita'}>filter by time of game</div>

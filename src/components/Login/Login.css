@@ -11,8 +11,6 @@
    
 }
 .auth0{
-    box-shadow: -5px 10px 25px #181818;
-    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center; 
@@ -20,6 +18,8 @@
     text-justify: auto;
     height: 200px;
     width: 80vw;
+    border-radius: 20px;
+    box-shadow: -5px 10px 25px #181818;
     background: linear-gradient(
     to left,
     rgb(134, 134, 134),

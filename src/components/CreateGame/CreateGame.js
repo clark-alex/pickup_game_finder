@@ -99,7 +99,6 @@ class CreateGame extends Component {
         console.log(obj);
         axios.put(`/api/edit/${id}`, obj)
             .then(res => {
-                console.log('edit status', res.status)
                 res.status === 200 ? alert('Successfully Submitted!') : ('oops. Try Again')
             })
 
@@ -113,10 +112,12 @@ class CreateGame extends Component {
                 address: res.data.results[0].formatted_address
             })
             console.log(res.data.results[0].formatted_address)
+            alert(`Is ${res.data.results[0].formatted_address} the correct address?`)
+            this.setState({
+                saveClick: !this.state.saveClick
+            })
         })
-        this.setState({
-            saveClick: !this.state.saveClick
-        })
+
     }
     cancelButton(){
         this.setState({
@@ -166,6 +167,7 @@ class CreateGame extends Component {
                                 <option>Rugby</option>
                                 <option>Volleyball</option>
                                 <option>Soft Ball</option>
+                                <option>Football</option>
                             </select>
                             :
                             <select className={'selectButton'} ref='sport' name='sport' >
@@ -176,6 +178,7 @@ class CreateGame extends Component {
                                 <option>Rugby</option>
                                 <option>Volleyball</option>
                                 <option>Soft Ball</option>
+                                <option>Football</option>
 
                             </select>
                     }

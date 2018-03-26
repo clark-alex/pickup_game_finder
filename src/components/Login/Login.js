@@ -23,7 +23,7 @@ class Login extends Component {
                 <div className={'auth0'}>
                     <img className={'loginLogo'} src={require('../images/LogoMakr_63KbJl.png')} />
 
-                    <a className={'loginButton'} href={process.env.REACT_APP_LOGIN}>Login/Register</a>
+                    <a className={'loginButton'} href={process.env.REACT_APP_LOGIN}>Login</a>
                 </div>
             </div>
         )
